@@ -21,7 +21,7 @@ services:
       MYSQL_USER: trippy
       MYSQL_PASSWORD: trippy
     ports:
-      - "63790:6379"
+      - "33060:3306"
     networks:
       - backend
 networks:
