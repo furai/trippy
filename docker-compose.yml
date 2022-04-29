@@ -12,7 +12,7 @@ services:
     networks:
       - backend
   mariadb:
-    image: mariadb
+    image: mariadb:10.6
     volumes:
       - db_data:/var/lib/mysql
     environment:
