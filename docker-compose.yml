@@ -7,3 +7,24 @@ services:
       - "8080:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    profiles:
+      - full_app
+    networks:
+      - backend
+  mariadb:
+    image: mariadb
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+      MYSQL_DATABASE: trippy
+      MYSQL_USER: trippy
+      MYSQL_PASSWORD: trippy
+    ports:
+      - "63790:6379"
+    networks:
+      - backend
+networks:
+  backend: {}
+volumes:
+  db_data: {}

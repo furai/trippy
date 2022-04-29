@@ -1,9 +1,0 @@
-services:
-  trippyweb:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    ports:
-      - "8080:80"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
