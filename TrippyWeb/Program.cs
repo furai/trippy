@@ -5,9 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
 var connectionString = builder.Configuration.GetConnectionString("TrippyDatabase");
+var serverVersion = new MariaDbServerVersion(new Version(10, 6, 7));
+
 builder.Services.AddDbContext<TrippWebDbContext>(options => options.UseMySql(
-    connectionString, ServerVersion.AutoDetect(connectionString)
+    connectionString, serverVersion
 ));
 
 var app = builder.Build();
