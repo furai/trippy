@@ -8,8 +8,8 @@ using TrippyWeb.Data;
 
 namespace TrippyWeb.Migrations
 {
-    [DbContext(typeof(TrippWebDbContext))]
-    partial class TrippWebDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TrippyWebDbContext))]
+    partial class TrippyWebDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

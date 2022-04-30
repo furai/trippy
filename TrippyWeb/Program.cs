@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 var connectionString = builder.Configuration.GetConnectionString("TrippyDatabase");
 var serverVersion = new MariaDbServerVersion(new Version(10, 6, 7));
 
-builder.Services.AddDbContext<TrippWebDbContext>(options => options.UseMySql(
+builder.Services.AddDbContext<TrippyWebDbContext>(options => options.UseMySql(
     connectionString, serverVersion
 ));
 

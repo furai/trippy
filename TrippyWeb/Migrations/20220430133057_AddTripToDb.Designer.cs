@@ -9,7 +9,7 @@ using TrippyWeb.Data;
 
 namespace TrippyWeb.Migrations
 {
-    [DbContext(typeof(TrippWebDbContext))]
+    [DbContext(typeof(TrippyWebDbContext))]
     [Migration("20220430133057_AddTripToDb")]
     partial class AddTripToDb
     {

@@ -3,8 +3,8 @@ using TrippyWeb.Model;
 
 namespace TrippyWeb.Data;
 
-public class TrippWebDbContext : DbContext
+public class TrippyWebDbContext : DbContext
 {
-    public TrippWebDbContext(DbContextOptions<TrippWebDbContext> options) : base(options) { }
+    public TrippyWebDbContext(DbContextOptions<TrippyWebDbContext> options) : base(options) { }
     public DbSet<Trip>? Trip { get; set; }
 }
