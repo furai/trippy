@@ -1,38 +1,45 @@
 #nullable disable
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using TrippyWeb.Data;
 using TrippyWeb.Model;
 
-namespace TrippyWeb.Pages.Trips;
-
-public class CreateModel : PageModel
+namespace TrippyWeb.Pages.Trips
 {
-    private readonly TrippyWeb.Data.TrippyWebDbContext _context;
-
-    public CreateModel(TrippyWeb.Data.TrippyWebDbContext context)
+    public class CreateModel : PageModel
     {
-        _context = context;
-    }
+        private readonly TrippyWeb.Data.TrippyWebDbContext _context;
 
-    public IActionResult OnGet()
-    {
-        return Page();
+        public CreateModel(TrippyWeb.Data.TrippyWebDbContext context)
+        {
+            _context = context;
+        }
 
-    }
-
-    [BindProperty]
-    public Trip Trip { get; set; }
-
-    public async Task<IActionResult> OnPostAsync()
-    {
-        if (!ModelState.IsValid)
+        public IActionResult OnGet()
         {
             return Page();
         }
 
-        _context.Trip.Add(Trip);
-        await _context.SaveChangesAsync();
+        [BindProperty]
+        public Trip Trip { get; set; }
 
-        return RedirectToPage("./Index");
+        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _context.Trip.Add(Trip);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Index");
+        }
     }
 }

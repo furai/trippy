@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Trip[0].Destination)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trip[0].FreeSpots)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -24,6 +27,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FreeSpots)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
