@@ -19,4 +19,6 @@ public class Trip
 
 /* Jako Kierowca określam warunki przejazdu: ilość osób,
 pasażerowie palący/niepalący, cena, miejsce docelowe, ewentualne
-przystanki */
+przystanki
+
+bezpieczne odzyskiwanie hasła przez maila koniecznie */
