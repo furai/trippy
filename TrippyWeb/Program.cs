@@ -13,15 +13,53 @@ builder.Services.AddDbContext<TrippyWebDbContext>(options => options.UseMySql(
     connectionString, serverVersion
 ));
 
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+switch (app.Environment.EnvironmentName.ToLower())
 {
-    app.UseExceptionHandler("/Error");
+    case "production":
+        Console.WriteLine("Running in production mode.");
+        break;
+    case "staging":
+        Console.WriteLine("Running in staging mode.");
+        break;
+    case "development":
+        Console.WriteLine("Running in development mode.");
+        break;
+    default:
+        Console.WriteLine("Running in unknown mode.");
+        break;
 }
 
-// app.UseHttpsRedirection();
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsProduction())
+{
+    app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHttpsRedirection();
+}
+
+bool useMigrations = builder.Configuration.GetValue<bool>("UseMigrations", false);
+Console.WriteLine("UseMigrations: " + useMigrations.ToString());
+
+if (!useMigrations)
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+
+        var context = services.GetRequiredService<TrippyWebDbContext>();
+        context.Database.EnsureCreated();
+        // DbInitializer.Initialize(context);
+    }
+}
+
 app.UseStaticFiles();
 
 app.UseRouting();
