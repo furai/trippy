@@ -24,7 +24,7 @@ namespace TrippyWeb.Pages.Trips
 
         public async Task OnGetAsync()
         {
-            Trip = await _context.Trip.ToListAsync();
+            Trip = await _context.Trips.ToListAsync();
         }
     }
 }

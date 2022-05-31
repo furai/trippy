@@ -29,7 +29,7 @@ namespace TrippyWeb.Pages.Trips
                 return NotFound();
             }
 
-            Trip = await _context.Trip.FirstOrDefaultAsync(m => m.Id == id);
+            Trip = await _context.Trips.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Trip == null)
             {

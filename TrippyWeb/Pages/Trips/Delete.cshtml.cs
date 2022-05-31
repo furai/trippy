@@ -30,7 +30,7 @@ namespace TrippyWeb.Pages.Trips
                 return NotFound();
             }
 
-            Trip = await _context.Trip.FirstOrDefaultAsync(m => m.Id == id);
+            Trip = await _context.Trips.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Trip == null)
             {
@@ -46,11 +46,11 @@ namespace TrippyWeb.Pages.Trips
                 return NotFound();
             }
 
-            Trip = await _context.Trip.FindAsync(id);
+            Trip = await _context.Trips.FindAsync(id);
 
             if (Trip != null)
             {
-                _context.Trip.Remove(Trip);
+                _context.Trips.Remove(Trip);
                 await _context.SaveChangesAsync();
             }
 
