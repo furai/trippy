@@ -1,11 +1,6 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TrippyWeb.Data;
 using TrippyWeb.Model;
@@ -14,9 +9,9 @@ namespace TrippyWeb.Pages.Trips
 {
     public class EditModel : PageModel
     {
-        private readonly TrippyWeb.Data.TrippyWebDbContext _context;
+        private readonly TrippyWebDbContext _context;
 
-        public EditModel(TrippyWeb.Data.TrippyWebDbContext context)
+        public EditModel(TrippyWebDbContext context)
         {
             _context = context;
         }

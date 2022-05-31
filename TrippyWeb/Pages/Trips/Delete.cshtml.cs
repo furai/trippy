@@ -1,8 +1,4 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +9,9 @@ namespace TrippyWeb.Pages.Trips
 {
     public class DeleteModel : PageModel
     {
-        private readonly TrippyWeb.Data.TrippyWebDbContext _context;
+        private readonly TrippyWebDbContext _context;
 
-        public DeleteModel(TrippyWeb.Data.TrippyWebDbContext context)
+        public DeleteModel(TrippyWebDbContext context)
         {
             _context = context;
         }
