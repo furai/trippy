@@ -448,3 +448,7 @@ $RECYCLE.BIN/
 ## Visual Studio Code
 ##
 /.vscode
+
+## Compiled assets
+!/TrippyWeb/wwwroot/css/.gitkeep
+/TrippyWeb/wwwroot/css

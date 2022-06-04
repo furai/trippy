@@ -15,6 +15,10 @@ builder.Services.AddDbContext<TrippyWebDbContext>(options => options.UseMySql(
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+#if DEBUG
+builder.Services.AddSassCompiler();
+#endif
+
 var app = builder.Build();
 
 switch (app.Environment.EnvironmentName.ToLower())
