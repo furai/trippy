@@ -19,11 +19,27 @@ body {
 body {
     display: flex;
     flex-direction: column;
-    position: relative;
+
+    .content-wrapper {
+        flex-grow: 1;
+        position: relative;
+    }
+
+    main {
+        margin-bottom: auto;
+    }
+}
+
+footer {
+    flex-grow: 0;
 }
 
 .toast-wrapper {
     position: absolute;
     bottom: 10%;
-    left: 5%;
+    right: 0.75rem;
+
+    .toast {
+        width: auto;
+    }
 }
