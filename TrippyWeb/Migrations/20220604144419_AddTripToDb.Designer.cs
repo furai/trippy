@@ -10,14 +10,14 @@ using TrippyWeb.Data;
 namespace TrippyWeb.Migrations
 {
     [DbContext(typeof(TrippyWebDbContext))]
-    [Migration("20220513164050_TripAddFreeSpots")]
-    partial class TripAddFreeSpots
+    [Migration("20220604144419_AddTripToDb")]
+    partial class AddTripToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("TrippyWeb.Model.Trip", b =>
@@ -36,7 +36,7 @@ namespace TrippyWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Trip");
+                    b.ToTable("Trip", (string)null);
                 });
 #pragma warning restore 612, 618
         }

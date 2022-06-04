@@ -15,7 +15,7 @@ namespace TrippyWeb.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("TrippyWeb.Model.Trip", b =>
@@ -34,7 +34,7 @@ namespace TrippyWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Trip");
+                    b.ToTable("Trip", (string)null);
                 });
 #pragma warning restore 612, 618
         }
