@@ -7,9 +7,11 @@
 }
 
 <div class="row align-items-center mb-3">
-    <h1 class="col-6">Index</h1>
-    <div class="col-6">
-        <a asp-page="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Create New</a>
+    <div class="col-auto">
+        <h1>Index</h1>
+    </div>
+    <div class="col-auto ms-auto">
+        <a asp-page="Create" class="btn btn-primary mx-auto"><i class="bi bi-plus-circle"></i> Create New</a>
     </div>
 </div>
 <table class="table table-hover table-bordered align-middle">
@@ -22,7 +24,7 @@
             <th scope="col">
                 @Html.DisplayNameFor(model => model.Trip[0].FreeSpots)
             </th>
-            <th scope="col"></th>
+            <th scope="col"><div class="text-end">Actions</div></th>
         </tr>
     </thead>
     <tbody>
@@ -38,12 +40,17 @@
                     @Html.DisplayFor(modelItem => item.FreeSpots)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary mx-1" data-bs-toggle="tooltip"
-                    data-bs-placement="auto" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-primary mx-1" data-bs-toggle="tooltip"
-                    data-bs-placement="auto" title="Details"><i class="bi bi-info-circle"></i></a>
-                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger mx-1" data-bs-toggle="tooltip"
-                    data-bs-placement="auto" title="Create"><i class="bi bi-trash"></i></a>
+                    <div class="d-flex flex-wrap justify-content-end">
+                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary m-1" data-bs-toggle="tooltip"
+                        data-bs-placement="auto" title="Edit"><i class="bi bi-pencil-square"></i><span
+                            class="d-none d-md-inline"> Edit</span></a>
+                        <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-primary m-1" data-bs-toggle="tooltip"
+                        data-bs-placement="auto" title="Details"><i class="bi bi-info-circle"></i><span
+                            class="d-none d-md-inline"> Details</span></a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger m-1" data-bs-toggle="tooltip"
+                        data-bs-placement="auto" title="Create"><i class="bi bi-trash"></i><span
+                            class="d-none d-md-inline"> Delete</span></a>
+                    </div>
                 </td>
             </tr>
         }
