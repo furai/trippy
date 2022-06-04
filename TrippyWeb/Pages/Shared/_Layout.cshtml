@@ -30,7 +30,7 @@
                             <a class="nav-link@(razorPageName == "/Privacy" ?  " text-dark" : " text-secondary")" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link@(razorPageName.StartsWith("/Trips") ?  " text-dark" : " text-secondary")" asp-area="" asp-page="/Trips/Index">Trips</a>
+                            <a class="nav-link@(razorPageName != null && razorPageName.StartsWith("/Trips") ?  " text-dark" : " text-secondary")" asp-area="" asp-page="/Trips/Index">Trips</a>
                         </li>
                     </ul>
                 </div>
