@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TrippyWeb.Data;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,9 @@ var serverVersion = new MariaDbServerVersion(new Version(10, 6, 7));
 builder.Services.AddDbContext<TrippyWebDbContext>(options => options.UseMySql(
     connectionString, serverVersion
 ));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<TrippyWebDbContext>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -67,6 +71,8 @@ if (!useMigrations)
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
