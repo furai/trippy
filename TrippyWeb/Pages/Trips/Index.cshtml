@@ -6,12 +6,13 @@
     int i = 0;
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table table-hover table-bordered">
+<div class="row align-items-center mb-3">
+    <h1 class="col-6">Index</h1>
+    <div class="col-6">
+        <a asp-page="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Create New</a>
+    </div>
+</div>
+<table class="table table-hover table-bordered align-middle">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -37,21 +38,12 @@
                     @Html.DisplayFor(modelItem => item.FreeSpots)
                 </td>
                 <td>
-                   <a
-                        asp-page="./Edit"
-                        asp-route-id="@item.Id"
-                        class="btn btn-primary"
-                    >Edit</a>
-                    <a
-                        asp-page="./Details"
-                        asp-route-id="@item.Id"
-                        class="btn btn-primary"
-                    >Details</a>
-                    <a
-                        asp-page="./Delete"
-                        asp-route-id="@item.Id"
-                        class="btn btn-primary"
-                    >Delete</a>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary mx-1" data-bs-toggle="tooltip"
+                    data-bs-placement="auto" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-primary mx-1" data-bs-toggle="tooltip"
+                    data-bs-placement="auto" title="Details"><i class="bi bi-info-circle"></i></a>
+                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger mx-1" data-bs-toggle="tooltip"
+                    data-bs-placement="auto" title="Create"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
         }
