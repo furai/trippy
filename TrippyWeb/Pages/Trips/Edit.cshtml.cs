@@ -49,6 +49,8 @@ namespace TrippyWeb.Pages.Trips
             try
             {
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Trip updated successfully!";
+
             }
             catch (DbUpdateConcurrencyException)
             {

@@ -48,6 +48,7 @@ namespace TrippyWeb.Pages.Trips
             {
                 _context.Trips.Remove(Trip);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Trip deleted successfully!";
             }
 
             return RedirectToPage("./Index");

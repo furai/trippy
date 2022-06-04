@@ -33,6 +33,7 @@ namespace TrippyWeb.Pages.Trips
 
             _context.Trips.Add(Trip);
             await _context.SaveChangesAsync();
+            TempData["success"] = "Trip created successfully!";
 
             return RedirectToPage("./Index");
         }

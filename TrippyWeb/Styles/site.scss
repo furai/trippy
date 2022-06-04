@@ -10,7 +10,8 @@ html {
     }
 }
 
-html, body {
+html,
+body {
     height: 100%;
 
 }
@@ -18,4 +19,11 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+.toast-wrapper {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
 }
