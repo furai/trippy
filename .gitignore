@@ -444,11 +444,12 @@ $RECYCLE.BIN/
 .idea/
 *.sln.iml
 
-##
-## Visual Studio Code
-##
+# Visual Studio Code
 /.vscode
 
-## Compiled assets
+# Compiled assets
 !/TrippyWeb/wwwroot/css/.gitkeep
 /TrippyWeb/wwwroot/css
+
+# Env
+/TrippyWeb/.env

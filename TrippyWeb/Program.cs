@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using TrippyWeb.Data;
-using Microsoft.AspNetCore.Identity;
+using TrippyWeb.Helpers;
 
+var root = Directory.GetCurrentDirectory();
+var dotenv = Path.Combine(root, ".env");
+DotEnv.Load(dotenv);
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
