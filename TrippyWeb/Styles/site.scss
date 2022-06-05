@@ -43,3 +43,20 @@ footer {
         width: auto;
     }
 }
+
+.navbar .navbar-nav .nav-link {
+    &:hover,
+    &.active {
+        text-decoration: underline;
+    }
+}
+
+a:hover {
+    color: var(--bs-success);
+}
+
+.validation-summary-valid {
+    ul {
+        margin-bottom: 0;
+    }
+}
