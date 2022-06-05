@@ -17,8 +17,15 @@ builder.Services.AddDbContext<TrippyWebDbContext>(options => options.UseMySql(
     connectionString, serverVersion
 ));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<TrippyWebDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequireDigit = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+}
+).AddEntityFrameworkStores<TrippyWebDbContext>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
