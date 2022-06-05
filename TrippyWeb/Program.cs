@@ -27,6 +27,14 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 }
 ).AddEntityFrameworkStores<TrippyWebDbContext>();
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 #if DEBUG
@@ -79,13 +87,10 @@ if (!useMigrations)
 }
 
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
-
 app.UseAuthorization();
-
+app.UseSession();
 app.MapRazorPages();
 
 app.Run();
