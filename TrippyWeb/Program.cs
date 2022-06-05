@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using TrippyWeb.Data;
 using TrippyWeb.Helpers;
+using TrippyWeb.Services;
 
 var root = Directory.GetCurrentDirectory();
 var dotenv = Path.Combine(root, ".env");
@@ -36,6 +37,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
