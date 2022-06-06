@@ -21,30 +21,22 @@ namespace TrippyWeb.Areas.Identity.Pages.Account
     {
         private readonly UserManager<TrippyUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IWebHostEnvironment _env;
+        private readonly ILogger<ForgotPasswordModel> _logger;
 
-        public ForgotPasswordModel(UserManager<TrippyUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<TrippyUser> userManager, IEmailSender emailSender, IWebHostEnvironment env, ILogger<ForgotPasswordModel> logger)
         {
             _userManager = userManager;
+            _env = env;
             _emailSender = emailSender;
+            _logger = logger;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [EmailAddress]
             public string Email { get; set; }
@@ -61,8 +53,6 @@ namespace TrippyWeb.Areas.Identity.Pages.Account
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Page(
@@ -70,6 +60,11 @@ namespace TrippyWeb.Areas.Identity.Pages.Account
                     pageHandler: null,
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
+
+                if (_env.IsDevelopment())
+                {
+                    _logger.LogInformation(callbackUrl);
+                }
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,

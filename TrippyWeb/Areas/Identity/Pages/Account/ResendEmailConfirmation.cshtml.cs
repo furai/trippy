@@ -22,30 +22,22 @@ namespace TrippyWeb.Areas.Identity.Pages.Account
     {
         private readonly UserManager<TrippyUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IWebHostEnvironment _env;
+        private readonly ILogger<ResendEmailConfirmationModel> _logger;
 
-        public ResendEmailConfirmationModel(UserManager<TrippyUser> userManager, IEmailSender emailSender)
+        public ResendEmailConfirmationModel(UserManager<TrippyUser> userManager, IEmailSender emailSender, IWebHostEnvironment env, ILogger<ResendEmailConfirmationModel> logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _env = env;
+            _logger = logger;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [EmailAddress]
             public string Email { get; set; }
@@ -77,6 +69,12 @@ namespace TrippyWeb.Areas.Identity.Pages.Account
                 pageHandler: null,
                 values: new { userId = userId, code = code },
                 protocol: Request.Scheme);
+
+            if (_env.IsDevelopment())
+            {
+                _logger.LogInformation(callbackUrl);
+            }
+
             await _emailSender.SendEmailAsync(
                 Input.Email,
                 "Confirm your email",

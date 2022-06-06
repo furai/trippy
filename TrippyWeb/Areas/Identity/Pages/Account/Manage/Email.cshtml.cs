@@ -21,53 +21,35 @@ namespace TrippyWeb.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<TrippyUser> _userManager;
         private readonly SignInManager<TrippyUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly ILogger<EmailModel> _logger;
+        private readonly IWebHostEnvironment _env;
 
         public EmailModel(
             UserManager<TrippyUser> userManager,
             SignInManager<TrippyUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ILogger<EmailModel> logger,
+            IWebHostEnvironment env)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _logger = logger;
+            _env = env;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string Email { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public bool IsEmailConfirmed { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [EmailAddress]
             [Display(Name = "New email")]
@@ -124,6 +106,12 @@ namespace TrippyWeb.Areas.Identity.Pages.Account.Manage
                     pageHandler: null,
                     values: new { area = "Identity", userId = userId, email = Input.NewEmail, code = code },
                     protocol: Request.Scheme);
+
+                if (_env.IsDevelopment())
+                {
+                    _logger.LogInformation(callbackUrl);
+                }
+
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
                     "Confirm your email",
@@ -160,6 +148,12 @@ namespace TrippyWeb.Areas.Identity.Pages.Account.Manage
                 pageHandler: null,
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
+
+            if (_env.IsDevelopment())
+            {
+                _logger.LogInformation(callbackUrl);
+            }
+
             await _emailSender.SendEmailAsync(
                 email,
                 "Confirm your email",

@@ -30,14 +30,17 @@ namespace TrippyWeb.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<TrippyUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IWebHostEnvironment _env;
 
         public RegisterModel(
             UserManager<TrippyUser> userManager,
             IUserStore<TrippyUser> userStore,
             SignInManager<TrippyUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IWebHostEnvironment env)
         {
+            _env = env;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
@@ -109,6 +112,11 @@ namespace TrippyWeb.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
+
+                    if (_env.IsDevelopment())
+                    {
+                        _logger.LogInformation(callbackUrl);
+                    }
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}' rel='notrack'>clicking here</a>.");
