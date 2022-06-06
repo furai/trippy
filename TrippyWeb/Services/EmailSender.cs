@@ -8,12 +8,14 @@ namespace TrippyWeb.Services;
 public class EmailSender : IEmailSender
 {
     private readonly ILogger _logger;
+    private readonly IWebHostEnvironment _env;
     private string? _apiKey;
     private string? _secretKey;
 
-    public EmailSender(ILogger<EmailSender> logger)
+    public EmailSender(ILogger<EmailSender> logger, IWebHostEnvironment env)
     {
         _logger = logger;
+        _env = env;
         _apiKey = Environment.GetEnvironmentVariable("MAILJET_API_KEY");
         _secretKey = Environment.GetEnvironmentVariable("MAILJET_SECRET_KEY");
     }
@@ -38,8 +40,10 @@ public class EmailSender : IEmailSender
                 .WithTo(new SendContact(toEmail))
                 .Build();
 
-        _logger.LogInformation(email.HTMLPart);
 
-        // await client.SendTransactionalEmailAsync(email);
+        if (!_env.IsDevelopment())
+        {
+            await client.SendTransactionalEmailAsync(email);
+        }
     }
 }
