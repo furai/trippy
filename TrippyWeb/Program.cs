@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using TrippyWeb.Data;
 using TrippyWeb.Helpers;
+using TrippyWeb.Model;
 using TrippyWeb.Services;
 
 var root = Directory.GetCurrentDirectory();
@@ -20,7 +21,7 @@ builder.Services.AddDbContext<TrippyWebDbContext>(options => options.UseMySql(
     connectionString, serverVersion
 ));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<TrippyUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequireDigit = false;

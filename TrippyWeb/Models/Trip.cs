@@ -16,9 +16,3 @@ public class Trip
     [Display(Name = "Free spots")]
     public int FreeSpots { get; set; }
 }
-
-/* Jako Kierowca określam warunki przejazdu: ilość osób,
-pasażerowie palący/niepalący, cena, miejsce docelowe, ewentualne
-przystanki
-
-bezpieczne odzyskiwanie hasła przez maila koniecznie */
