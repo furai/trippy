@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<ITripService, TripService>();
 
 var connectionString = builder.Configuration.GetConnectionString("TrippyDatabase");
 var serverVersion = new MariaDbServerVersion(new Version(10, 6, 7));
