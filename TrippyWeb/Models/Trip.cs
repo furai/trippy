@@ -25,7 +25,7 @@ public class Trip
     public int FreeSpots { get; set; }
 
     //określenie relacji OneToMany dla jeden uytkownik moze oferować kilka przejazdów
-    public int OwnerId { get; set; }
+    public string OwnerId { get; set; }
 
     public virtual TrippyUser Owner { get; set; }
 
