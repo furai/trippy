@@ -9,5 +9,9 @@ public class TrippyUser : IdentityUser
     [Required(ErrorMessage = "Name field is required.")]
     public string Name { get; set; } = String.Empty;
 
-    public virtual ICollection<Trip>? Trips { get; set; }
+    [InverseProperty("Owner")]
+    public List<Trip>? OfferedTrips { get; set; }
+
+    public int TripId { get; set; }
+    public Trip? UsedTrip { get; set; }
 }
