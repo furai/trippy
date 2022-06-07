@@ -1,7 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrippyWeb.Model;
 
+[Table("Trips")]
 public class Trip
 {
     [Key]
@@ -25,8 +28,13 @@ public class Trip
 
     // określenie relacji OneToMany dla jeden użytkownik moze oferować kilka przejazdów
     public string OwnerId { get; set; } = null!;
+    public TrippyUser Owner { get; set; } = null!;
 
-    public virtual TrippyUser Owner { get; set; } = null!;
+    [Required(ErrorMessage = "Price field is required.")]
+    [Precision(5, 2)]
+    public decimal Price { get; set; }
+    public List<string> Stops { get; set; } = new List<string>();
 
-    public bool IsActive { get; set; } = true;
+    [InverseProperty("UsedTrip")]
+    public List<TrippyUser> Passengers { get; set; }  = new List<TrippyUser>();
 }
