@@ -12,9 +12,14 @@ namespace TrippyWeb.Services
             _context = context;
         }
 
-        public IQueryable<Trip> GetActiveTrips()
+        public IQueryable<Trip>? GetActiveTrips()
         {
-            return _context.Trips.Where(t => t.IsActive);
+            if (_context.Trips != null)
+            {
+                return _context.Trips.Where(t => t.IsActive);
+            }
+
+            return null;
         }
 
         public IQueryable<Trip> TakeSlot()

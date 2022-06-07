@@ -10,8 +10,10 @@
 
     <p>Active trips</p>
 
-    @foreach (var trip in Model.Records)
-    {
-        <p>@trip.Beginning @trip.Destination @trip.StartDate @trip.Owner.Name</p>
+    @if (Model.Records != null) {
+        @foreach (var trip in Model.Records)
+        {
+            <p>@trip.Beginning @trip.Destination @trip.StartDate @(trip.Owner != null ? trip.Owner.Name : "")</p>
+        }
     }
 </div>

@@ -9,5 +9,5 @@ public class TrippyUser : IdentityUser
     [Required(ErrorMessage = "Name field is required.")]
     public string Name { get; set; } = String.Empty;
 
-    public virtual ICollection<Trip> Trips { get; set; }
+    public virtual ICollection<Trip>? Trips { get; set; }
 }

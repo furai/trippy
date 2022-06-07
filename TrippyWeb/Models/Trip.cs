@@ -7,7 +7,6 @@ public class Trip
     [Key]
     public int Id { get; set; }
 
-
     [Required(ErrorMessage = "Beginning field is required.")]
     [StringLength(maximumLength: 100, MinimumLength = 2)]
     public string Beginning { get; set; } = String.Empty;
@@ -25,9 +24,9 @@ public class Trip
     public int FreeSpots { get; set; }
 
     //określenie relacji OneToMany dla jeden uytkownik moze oferować kilka przejazdów
-    public string OwnerId { get; set; }
+    public string OwnerId { get; set; } = null!;
 
-    public virtual TrippyUser Owner { get; set; }
+    public virtual TrippyUser Owner { get; set; } = null!;
 
     public bool IsActive { get; set; } = true;
 }
