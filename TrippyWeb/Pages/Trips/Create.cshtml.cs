@@ -1,11 +1,14 @@
 #nullable disable
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TrippyWeb.Data;
 using TrippyWeb.Model;
 
+
 namespace TrippyWeb.Pages.Trips
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly TrippyWebDbContext _context;
