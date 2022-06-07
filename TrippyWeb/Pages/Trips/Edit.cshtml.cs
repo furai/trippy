@@ -39,7 +39,7 @@ namespace TrippyWeb.Pages.Trips
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (_context.Trips == null || Trip == null)
             {
                 return Page();
             }
@@ -50,7 +50,6 @@ namespace TrippyWeb.Pages.Trips
             {
                 await _context.SaveChangesAsync();
                 TempData["success"] = "Trip updated successfully!";
-
             }
             catch (DbUpdateConcurrencyException)
             {
