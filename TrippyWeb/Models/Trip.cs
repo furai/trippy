@@ -17,7 +17,6 @@ public class Trip
     public string Destination { get; set; } = String.Empty;
 
     [Required(ErrorMessage = "Start date is required.")]
-    [Column(TypeName = "DateTime2")]
     public DateTime StartDate { get; set; }
 
     [Required(ErrorMessage = "Free Spots field is required.")]
