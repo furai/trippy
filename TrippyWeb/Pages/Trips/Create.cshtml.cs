@@ -9,10 +9,12 @@ namespace TrippyWeb.Pages.Trips
     public class CreateModel : PageModel
     {
         private readonly TrippyWebDbContext _context;
+        private readonly ILogger<CreateModel> _logger;
 
-        public CreateModel(TrippyWebDbContext context)
+        public CreateModel(TrippyWebDbContext context, ILogger<CreateModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public IActionResult OnGet()
@@ -28,6 +30,8 @@ namespace TrippyWeb.Pages.Trips
         {
             if (!ModelState.IsValid)
             {
+                _logger.LogInformation("Model is invalid.");
+
                 return Page();
             }
 
