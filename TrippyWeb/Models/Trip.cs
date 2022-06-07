@@ -19,11 +19,11 @@ public class Trip
     public DateTime StartDate { get; set; }
 
     [Required(ErrorMessage = "Free Spots field is required.")]
-    [Range(1, 10, ErrorMessage = "Value for {0} must be between {1} and {2}")]
+    [Range(1, 4, ErrorMessage = "Value for {0} must be between {1} and {2}")]
     [Display(Name = "Free spots")]
     public int FreeSpots { get; set; }
 
-    //określenie relacji OneToMany dla jeden uytkownik moze oferować kilka przejazdów
+    // określenie relacji OneToMany dla jeden użytkownik moze oferować kilka przejazdów
     public string OwnerId { get; set; } = null!;
 
     public virtual TrippyUser Owner { get; set; } = null!;
