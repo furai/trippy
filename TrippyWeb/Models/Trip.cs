@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrippyWeb.Model;
 
@@ -30,9 +32,9 @@ public class Trip
 
     [Required(ErrorMessage = "Price field is required.")]
     [Precision(5, 2)]
-    public decimal Price { get; set; };
-    public List<string> Stops { get; set; }
+    public decimal Price { get; set; }
+    public List<string> Stops { get; set; } = new List<string>();
 
     [InverseProperty("UsedTrip")]
-    public List<TrippyUser> Passengers { get; set; }
+    public List<TrippyUser> Passengers { get; set; }  = new List<TrippyUser>();
 }
