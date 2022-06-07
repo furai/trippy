@@ -16,7 +16,7 @@ namespace TrippyWeb.Services
         {
             if (_context.Trips != null)
             {
-                return _context.Trips.Where(t => t.IsActive);
+                return null;
             }
 
             return null;
