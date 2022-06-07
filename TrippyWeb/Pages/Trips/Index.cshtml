@@ -33,10 +33,22 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Trip[0].Destination)
+                @Html.DisplayNameFor(model => model.TripsList[0].Beginning)
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Trip[0].FreeSpots)
+                @Html.DisplayNameFor(model => model.TripsList[0].Destination)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.TripsList[0].FreeSpots)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.TripsList[0].StartDate)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.TripsList[0].EndDate)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.TripsList[0].Owner)
             </th>
             <th scope="col">
                 <div class="text-end me-1">Actions</div>
@@ -44,16 +56,28 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Trip)
+        @foreach (var item in Model.TripsList)
         {
             i++;
             <tr>
                 <th scope="row">@i</th>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Beginning)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Destination)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FreeSpots)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner.Name)
                 </td>
                 <td>
                     <div class="d-flex flex-wrap justify-content-end">

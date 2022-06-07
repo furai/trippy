@@ -21,6 +21,9 @@ public class Trip
     [Required(ErrorMessage = "Start date is required.")]
     public DateTime StartDate { get; set; }
 
+    [Required(ErrorMessage = "End date is required.")]
+    public DateTime EndDate { get; set; }
+
     [Required(ErrorMessage = "Free Spots field is required.")]
     [Range(1, 4, ErrorMessage = "Value for {0} must be between {1} and {2}")]
     [Display(Name = "Free spots")]

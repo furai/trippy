@@ -15,11 +15,11 @@ namespace TrippyWeb.Pages.Trips
             _context = context;
         }
 
-        public IList<Trip> Trip { get;set; }
+        public IList<Trip> TripsList { get; set; }
 
         public async Task OnGetAsync()
         {
-            Trip = await _context.Trips.ToListAsync();
+            TripsList = await _context.Trips.Include(t => t.Owner).ToListAsync();
         }
     }
 }
