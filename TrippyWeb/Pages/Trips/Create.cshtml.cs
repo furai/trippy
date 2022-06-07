@@ -1,7 +1,9 @@
 #nullable disable
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TrippyWeb.Data;
 using TrippyWeb.Model;
 
@@ -12,9 +14,11 @@ public class CreateModel : PageModel
 {
     private readonly TrippyWebDbContext _context;
     private readonly ILogger<CreateModel> _logger;
+    private readonly UserManager<TrippyUser> _userManager;
 
-    public CreateModel(TrippyWebDbContext context, ILogger<CreateModel> logger)
+    public CreateModel(TrippyWebDbContext context, ILogger<CreateModel> logger, UserManager<TrippyUser> userManager)
     {
+        _userManager = userManager;
         _context = context;
         _logger = logger;
     }
@@ -25,12 +29,15 @@ public class CreateModel : PageModel
     }
 
     [BindProperty]
-    public Trip Trip { get; set; }
+    public Trip Trip { get; set; } = default!;
 
-    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid)
+        var user = await _userManager.GetUserAsync(User);
+
+        Trip.Owner = user;
+
+        if (_context.Trips == null || Trip == null)
         {
             _logger.LogInformation("Model is invalid.");
 
