@@ -1,3 +1,6 @@
+using TrippyWeb.Data;
+using TrippyWeb.Model;
+
 namespace TrippyWeb.Services
 {
     public class TripService : ITripService
@@ -9,15 +12,19 @@ namespace TrippyWeb.Services
             _context = context;
         }
 
-        public IQueryable<Trip> GetActiveTrips() 
+        public IQueryable<Trip>? GetActiveTrips()
         {
-            return _context.Trip.Where(t => t.IsActive);
+            if (_context.Trips != null)
+            {
+                return _context.Trips.Where(t => t.IsActive);
+            }
+
+            return null;
         }
 
         public IQueryable<Trip> TakeSlot()
         {
             throw new NotImplementedException();
         }
-        
     }
 }
