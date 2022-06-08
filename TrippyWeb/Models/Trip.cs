@@ -29,14 +29,13 @@ public class Trip
     [Display(Name = "Free spots")]
     public int FreeSpots { get; set; }
 
-    // określenie relacji OneToMany dla jeden użytkownik moze oferować kilka przejazdów
     public string OwnerId { get; set; } = null!;
     public TrippyUser Owner { get; set; } = null!;
 
     [Required(ErrorMessage = "Price field is required.")]
     [Precision(5, 2)]
     public decimal Price { get; set; }
-    public List<string> Stops { get; set; } = new List<string>();
+    public List<Stop>? Stops { get; set; }
 
     [InverseProperty("UsedTrip")]
     public List<TrippyUser> Passengers { get; set; }  = new List<TrippyUser>();
