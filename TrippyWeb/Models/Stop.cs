@@ -11,4 +11,8 @@ public class Stop
 
     [Required]
     public string Name { get; set; } = String.Empty;
+
+    public int TripId { get; set; }
+
+    public Trip Trip { get; set; } = null!;
 }
