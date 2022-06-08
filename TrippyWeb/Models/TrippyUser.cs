@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrippyWeb.Model;
 
-[Table("TrippyUsers")]
 public class TrippyUser : IdentityUser
 {
     [PersonalData]
@@ -13,7 +12,6 @@ public class TrippyUser : IdentityUser
 
     [InverseProperty("Owner")]
     public List<Trip>? OfferedTrips { get; set; }
-
     public int TripId { get; set; }
-    public Trip? UsedTrip { get; set; }
+    public List<Trip>? JoinedTrips { get; set; }
 }

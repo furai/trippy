@@ -26,7 +26,7 @@ namespace TrippyWeb.Pages.Trips
                 return NotFound();
             }
 
-            Trip = await _context.Trips.FirstOrDefaultAsync(m => m.Id == id);
+            Trip = await _context.Trips.FirstOrDefaultAsync(m => m.TripID == id);
 
             if (Trip == null)
             {
@@ -53,7 +53,7 @@ namespace TrippyWeb.Pages.Trips
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TripExists(Trip.Id))
+                if (!TripExists(Trip.TripID))
                 {
                     return NotFound();
                 }
@@ -68,7 +68,7 @@ namespace TrippyWeb.Pages.Trips
 
         private bool TripExists(int id)
         {
-            return _context.Trips.Any(e => e.Id == id);
+            return _context.Trips.Any(e => e.TripID == id);
         }
     }
 }

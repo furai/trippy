@@ -16,7 +16,7 @@ namespace TrippyWeb.Services
         {
             if (_context.Trips != null)
             {
-                return null;
+                return _context.Trips;
             }
 
             return null;
