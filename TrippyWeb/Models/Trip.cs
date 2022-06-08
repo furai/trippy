@@ -37,6 +37,5 @@ public class Trip
     public decimal Price { get; set; }
     public List<Stop>? Stops { get; set; }
 
-    [InverseProperty("UsedTrip")]
-    public List<TrippyUser> Passengers { get; set; }  = new List<TrippyUser>();
+    public List<TrippyUser> Passengers { get; set; } = new List<TrippyUser>();
 }

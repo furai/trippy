@@ -14,5 +14,5 @@ public class TrippyUser : IdentityUser
     public List<Trip>? OfferedTrips { get; set; }
 
     public int TripId { get; set; }
-    public Trip? UsedTrip { get; set; }
+    public List<Trip>? JoinedTrips { get; set; }
 }
