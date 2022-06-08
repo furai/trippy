@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrippyWeb.Model;
 
-[Table("TrippyUsers")]
 public class TrippyUser : IdentityUser
 {
     [PersonalData]
