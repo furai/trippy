@@ -38,6 +38,11 @@
                 <label asp-for="Trip.FreeSpots" class="control-label"></label>
                 <span asp-validation-for="Trip.FreeSpots" class="text-danger"></span>
             </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Trip.NonSmoking" /> @Html.DisplayNameFor(model => model.Trip.NonSmoking)
+                </label>
+            </div>
             <div class="form-group mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
