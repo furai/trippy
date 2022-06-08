@@ -13,7 +13,6 @@ public class TrippyWebDbContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Trip>().ToTable("Trip");
 
         // modelBuilder.Entity<TrippyUser>()
         // .HasMany(tu => tu.OfferedTrips)
