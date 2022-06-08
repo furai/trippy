@@ -12,16 +12,40 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.Beginning)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.Beginning)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Trip.Destination)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Trip.Destination)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Trip.FreeSpots)
+            @Html.DisplayNameFor(model => model.Trip.DurationInMinutes)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Trip.FreeSpots)
+            @Html.DisplayFor(model => model.Trip.DurationInMinutes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.StartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.EndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.EndDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.Owner.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.Owner.Name)
         </dd>
     </dl>
 </div>
