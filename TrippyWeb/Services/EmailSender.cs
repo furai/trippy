@@ -1,6 +1,5 @@
 using Mailjet.Client;
 using Mailjet.Client.TransactionalEmails;
-using Mailjet.Client.TransactionalEmails.Response;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace TrippyWeb.Services;
