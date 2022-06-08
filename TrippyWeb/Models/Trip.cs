@@ -8,7 +8,7 @@ namespace TrippyWeb.Model;
 public class Trip
 {
     [Key]
-    public int Id { get; set; }
+    public int TripID { get; set; }
 
     [Required(ErrorMessage = "Beginning field is required.")]
     [StringLength(maximumLength: 100, MinimumLength = 2)]

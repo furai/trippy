@@ -7,7 +7,7 @@ namespace TrippyWeb.Model;
 public class Stop
 {
     [Key]
-    public int Id { get; set; }
+    public int StopID { get; set; }
 
     [Required]
     public string Name { get; set; } = String.Empty;
