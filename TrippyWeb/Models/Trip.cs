@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TrippyWeb.Model;
 
-[Table("Trips")]
+[Table("Trip")]
 public class Trip
 {
     [Key]
