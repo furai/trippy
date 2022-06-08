@@ -40,7 +40,9 @@ public class Trip
 
     [Required(ErrorMessage = "Price field is required.")]
     [Precision(5, 2)]
-    public decimal Price { get; set; }
+    [Range(0.0, double.MaxValue, ErrorMessage = "Value for {0} must be a positive floating point number.")]
+    [Display(Name = "Price in PLN")]
+    public double Price { get; set; }
     public List<Stop>? Stops { get; set; }
     public List<TrippyUser> Passengers { get; set; } = new List<TrippyUser>();
 

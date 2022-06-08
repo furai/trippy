@@ -38,12 +38,17 @@
                 <label asp-for="Trip.FreeSpots" class="control-label"></label>
                 <span asp-validation-for="Trip.FreeSpots" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            <div class="form-floating mb-3">
+                <input asp-for="Trip.Price" class="form-control" />
+                <label asp-for="Trip.Price" class="control-label"></label>
+                <span asp-validation-for="Trip.Price" class="text-danger"></span>
+            </div>
+            <div class="form-check mb-3">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Trip.NonSmoking" /> @Html.DisplayNameFor(model => model.Trip.NonSmoking)
                 </label>
             </div>
-            <div class="form-group mb-3">
+            <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
