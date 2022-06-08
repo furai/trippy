@@ -14,25 +14,8 @@ public class TrippyWebDbContext : IdentityDbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // modelBuilder.Entity<TrippyUser>()
-        // .HasMany(tu => tu.OfferedTrips)
-        // .WithOne();
-
-        // modelBuilder.Entity<TrippyUser>()
-        // .HasOne(tu => tu.UsedTrip)
-        // .WithMany(t => t.Passengers)
-        // .HasForeignKey(tu => tu.TripId)
-        // .HasConstraintName("ForeignKey_TrippyUser_Trip");
-
-        // modelBuilder.Entity<Trip>()
-        // .HasMany(t => t.Passengers)
-        // .WithOne();
-
-        // modelBuilder.Entity<Trip>()
-        // .HasOne(t => t.Owner)
-        // .WithMany(tu => tu.OfferedTrips)
-        // .HasForeignKey(t => t.OwnerId)
-        // .HasConstraintName("ForeignKey_Trip_TrippyUser")
-        // .onDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Trip>()
+            .Property(p => p.EndDate)
+            .HasComputedColumnSql("DATE_ADD(StartDate, INTERVAL DurationInMinutes MINUTE)", stored: true);
     }
 }

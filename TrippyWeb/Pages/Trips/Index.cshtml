@@ -45,7 +45,7 @@
                 @Html.DisplayNameFor(model => model.TripsList[0].StartDate)
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.TripsList[0].EndDate)
+                @Html.DisplayNameFor(model => model.TripsList[0].DurationInMinutes)
             </th>
             <th scope="col">
                 @Html.DisplayNameFor(model => model.TripsList[0].Owner)
@@ -74,7 +74,7 @@
                     @Html.DisplayFor(modelItem => item.StartDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
+                    @Html.DisplayFor(modelItem => item.DurationInMinutes)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Owner.Name)

@@ -12,7 +12,6 @@ public class TrippyUser : IdentityUser
 
     [InverseProperty("Owner")]
     public List<Trip>? OfferedTrips { get; set; }
-
     public int TripId { get; set; }
     public List<Trip>? JoinedTrips { get; set; }
 }
