@@ -9,50 +9,72 @@
 
 <h4>Trip</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
+<div class="form-wrapper">
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Trip.Beginning" class="form-control" />
-                <label asp-for="Trip.Beginning" class="control-label"></label>
-                <span asp-validation-for="Trip.Beginning" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input asp-for="Trip.Beginning" class="form-control" />
+                    <label asp-for="Trip.Beginning" class="control-label"></label>
+                    <span asp-validation-for="Trip.Beginning" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Trip.Destination" class="form-control" />
-                <label asp-for="Trip.Destination" class="control-label"></label>
-                <span asp-validation-for="Trip.Destination" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input asp-for="Trip.Destination" class="form-control" />
+                    <label asp-for="Trip.Destination" class="control-label"></label>
+                    <span asp-validation-for="Trip.Destination" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Trip.StartDate" class="form-control" />
-                <label asp-for="Trip.StartDate" class="control-label"></label>
-                <span asp-validation-for="Trip.StartDate" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input asp-for="Trip.StartDate" class="form-control" />
+                    <label asp-for="Trip.StartDate" class="control-label"></label>
+                    <span asp-validation-for="Trip.StartDate" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Trip.DurationInMinutes" class="form-control" />
-                <label asp-for="Trip.DurationInMinutes" class="control-label"></label>
-                <span asp-validation-for="Trip.DurationInMinutes" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input asp-for="Trip.DurationInMinutes" class="form-control" />
+                    <label asp-for="Trip.DurationInMinutes" class="control-label"></label>
+                    <span asp-validation-for="Trip.DurationInMinutes" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Trip.FreeSpots" class="form-control" />
-                <label asp-for="Trip.FreeSpots" class="control-label"></label>
-                <span asp-validation-for="Trip.FreeSpots" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input asp-for="Trip.FreeSpots" class="form-control" />
+                    <label asp-for="Trip.FreeSpots" class="control-label"></label>
+                    <span asp-validation-for="Trip.FreeSpots" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Trip.Price" class="form-control" />
-                <label asp-for="Trip.Price" class="control-label"></label>
-                <span asp-validation-for="Trip.Price" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input asp-for="Trip.Price" class="form-control" />
+                    <label asp-for="Trip.Price" class="control-label"></label>
+                    <span asp-validation-for="Trip.Price" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-check mb-3">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Trip.NonSmoking" /> @Html.DisplayNameFor(model => model.Trip.NonSmoking)
-                </label>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input asp-for="FileUpload.FormFile" class="form-control" />
+                    <label asp-for="FileUpload.FormFile" class="control-label"></label>
+                    <span asp-validation-for="FileUpload.FormFile" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-check mb-3">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Trip.NonSmoking" />
+                        @Html.DisplayNameFor(model => model.Trip.NonSmoking)
+                    </label>
+                </div>
             </div>
             <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 <div>
@@ -60,5 +82,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="../../Pages/Shared/_ValidationScriptsPartial" />
 }

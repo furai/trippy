@@ -4,8 +4,10 @@ Application's aim is to provide a portal for carpooling. Drivers should be able 
 
 ## Requirements
 
-* Globally installed dotnet and dotnet-ef.
+* System installation of `dotnet:6.0.300` and `dotnet-ef:6.0.5`.
+* On linux install `libgdiplus` which is required for PDFs.
 * Docker.
+* Bootstrap v5.1.3
 * Dotnet libraries:
     * AspNetCore.SassCompiler; Version: 1.52.2
     * Mailjet.Api; Version: 2.0.2
@@ -18,6 +20,9 @@ Application's aim is to provide a portal for carpooling. Drivers should be able 
     * Microsoft.EntityFrameworkCore.Tools; Version: 6.0
     * Microsoft.VisualStudio.Web.CodeGeneration.Design; Version: 6.0.5
     * Pomelo.EntityFrameworkCore.MySql; Version: 6.0.1
+    * Gembox.Pdf; Version: 17.0.1158
+    * HarfBuzzSharp.NativeAssets.Linux; Version: 2.8.2
+
 
 ## How to develop
 

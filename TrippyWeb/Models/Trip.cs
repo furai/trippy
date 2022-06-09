@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 
 namespace TrippyWeb.Model;
@@ -35,7 +36,10 @@ public class Trip
     [Display(Name = "Free Spots")]
     public int FreeSpots { get; set; }
 
+    [ValidateNever]
     public string OwnerId { get; set; } = null!;
+
+    [ValidateNever]
     public TrippyUser Owner { get; set; } = null!;
 
     [Required(ErrorMessage = "Price field is required.")]
@@ -44,7 +48,9 @@ public class Trip
     [Display(Name = "Price in PLN")]
     public double Price { get; set; }
     public List<Stop>? Stops { get; set; }
-    public List<TrippyUser> Passengers { get; set; } = new List<TrippyUser>();
+    public List<TrippyUser>? Passengers { get; set; }
 
     public bool NonSmoking { get; set; }
+
+    public byte[]? Map { get; set; }
 }

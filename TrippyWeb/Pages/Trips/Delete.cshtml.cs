@@ -26,7 +26,7 @@ namespace TrippyWeb.Pages.Trips
                 return NotFound();
             }
 
-            Trip = await _context.Trips.FirstOrDefaultAsync(m => m.TripID == id);
+            Trip = await _context.Trips.Include(t => t.Owner).FirstOrDefaultAsync(m => m.TripID == id);
 
             if (Trip == null)
             {

@@ -11,7 +11,7 @@
         // AMD. Register as an anonymous module.
         define("jquery.validate.unobtrusive", ['jquery-validation'], factory);
     } else if (typeof module === 'object' && module.exports) {
-        // CommonJS-like environments that support module.exports     
+        // CommonJS-like environments that support module.exports
         module.exports = factory(require('jquery-validation'));
     } else {
         // Browser global
@@ -59,7 +59,7 @@
 
         if (replace) {
             container.empty();
-            error.removeClass("input-validation-error").appendTo(container);
+            error.removeClass("is-invalid").appendTo(container);
         }
         else {
             error.hide();
@@ -134,7 +134,7 @@
         if (!result) {
             result = {
                 options: {  // options structure passed to jQuery Validate's validate() method
-                    errorClass: defaultOptions.errorClass || "input-validation-error",
+                    errorClass: defaultOptions.errorClass || "is-invalid",
                     errorElement: defaultOptions.errorElement || "span",
                     errorPlacement: function () {
                         onError.apply(form, arguments);
