@@ -120,6 +120,8 @@ namespace TrippyWeb.Pages.Trips
                 return NotFound();
             }
 
+            await _context.SaveChangesAsync();
+
             return Page();
         }
     }

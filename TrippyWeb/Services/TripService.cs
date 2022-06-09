@@ -34,6 +34,7 @@ namespace TrippyWeb.Services
                     {
                         TrippyUser user = _context.TrippyUsers.Where(u => u.UserName.Equals(userId)).First();
                         t.Passengers.Add(user);
+
                     }
 
                     return _context.Trips;
