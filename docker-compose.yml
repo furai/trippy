@@ -20,6 +20,9 @@ services:
       MYSQL_DATABASE: trippy
       MYSQL_USER: trippy
       MYSQL_PASSWORD: trippy
+      MARIADB_DATABASE: trippy
+      MARIADB_USER: trippy
+      MARIADB_PASSWORD: trippy
     ports:
       - "33060:3306"
     networks:
