@@ -21,8 +21,8 @@ Application's aim is to provide a portal for carpooling. Drivers should be able 
     * Microsoft.VisualStudio.Web.CodeGeneration.Design; Version: 6.0.5
     * Pomelo.EntityFrameworkCore.MySql; Version: 6.0.1
     * Gembox.Pdf; Version: 17.0.1158
+    * GemBox.Document; Version: 35.0.1000
     * HarfBuzzSharp.NativeAssets.Linux; Version: 2.8.2
-
 
 ## How to develop
 
