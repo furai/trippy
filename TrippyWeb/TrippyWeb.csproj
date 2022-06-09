@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.52.2" />
+    <PackageReference Include="Gembox.Pdf" Version="17.0.1158" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2" />
     <PackageReference Include="Mailjet.Api" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
@@ -24,7 +26,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
-    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="22.1.0" />
   </ItemGroup>
 
 </Project>
