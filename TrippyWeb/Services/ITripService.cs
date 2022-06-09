@@ -5,6 +5,6 @@ namespace TrippyWeb.Services
     public interface ITripService
     {
         public IQueryable<Trip>? GetActiveTrips();
-        public IQueryable<Trip>? TakeSlot(int? tripId, string? userId);
+        public IQueryable<Trip>? JoinToTrip(int? tripId, string? userId);
     }
 }

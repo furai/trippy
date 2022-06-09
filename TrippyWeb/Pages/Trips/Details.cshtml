@@ -9,6 +9,15 @@
 
 <div>
     <h4>Trip</h4>
+    @if (@HttpContext.User.Identity.Name != null || @Model.Trip.FreeSpots <= @Model.Trip.Passengers.Count())
+    {
+        <div class="d-flex flex-wrap justify-content-end">
+            <form asp-page="./Details" asp-page-handler="JoinToTrip" method="post" asp-route-tripId="@Model.Trip.TripID"
+            asp-route-userId="@HttpContext.User.Identity.Name">
+                <button class="btn btn-primary"><i class="bi bi-plus-circle"></i>Join</button>
+            </form>
+        </div>
+    }
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -59,6 +68,20 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Trip.Price)
         </dd>
+        @if (@Model.Trip.Passengers != null && @Model.Trip.Passengers.Count() > 0)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Trip.Passengers)
+            </dt>
+
+            @foreach (var item in @Model.Trip.Passengers)
+            {
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Trip.Passengers)
+                </dd>
+            }
+        }
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Trip.Map)
         </dt>
