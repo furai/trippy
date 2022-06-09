@@ -6,18 +6,22 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TrippyWeb.Data;
 using TrippyWeb.Model;
+using TrippyWeb.Services;
 
 namespace TrippyWeb.Pages.Trips
 {
     public class DetailsModel : PageModel
     {
         private readonly TrippyWebDbContext _context;
+        private readonly ITripService _tripService;
 
-        public DetailsModel(TrippyWebDbContext context)
+        public DetailsModel(TrippyWebDbContext context, ITripService tripService)
         {
             _context = context;
+            _tripService = tripService;
         }
 
+        public TrippyUser TrippyUser { get; set; }
         public Trip Trip { get; set; }
         public string MapImage { get; set; }
         public FileResult PDF { get; set; }
@@ -99,6 +103,23 @@ namespace TrippyWeb.Pages.Trips
                     return File(stream.ToArray(), "application/pdf", "file.pdf");
                 }
             }
+        }
+
+        public async Task<IActionResult> OnPostJoinToTripAsync(int? tripId, string? userId)
+        {
+            if (tripId == null || userId == null)
+            {
+                return NotFound();
+            }
+            
+             Trip = _tripService.JoinToTrip(tripId, userId).First();
+
+            if (Trip == null)
+            {
+                return NotFound();
+            }
+
+            return Page();
         }
     }
 }

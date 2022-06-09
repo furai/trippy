@@ -22,20 +22,22 @@ namespace TrippyWeb.Services
             return null;
         }
 
-        public IQueryable<Trip>? TakeSlot(int? tripId, string? userId)
+        public IQueryable<Trip>? JoinToTrip(int? tripId, string? userId)
         {
             if (_context.TrippyUsers != null)
             {
-                TrippyUser user = _context.TrippyUsers.Where(u => u.Id.Equals(userId)).First();
-                if (_context.Trips != null && user != null)
+                if (_context.Trips != null)
                 {
-                    List<TrippyUser> passengers = _context.Trips
-                    .Where(t => t.TripID == tripId)
-                    .Where(t => t.FreeSpots > t.Passengers.Count())
-                    .Select(t => t.Passengers)
-                    .First();
 
-                    passengers.Add(user);
+                    Trip t = _context.Trips.Where(t => t.TripID == tripId).First();
+                
+                    TrippyUser user = _context.TrippyUsers.Where(u => u.UserName.Equals(userId)).First();
+            
+                    if (t.FreeSpots > t.Passengers?.Count())
+                    {
+                        t.Passengers.Add(user);
+                    }
+
                     return _context.Trips;
                 }
             }
