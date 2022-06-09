@@ -46,26 +46,23 @@ namespace TrippyWeb.Pages.Trips
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if(FileUpload.FormFile !=null){
-            using (var memoryStream = new MemoryStream())
+            if (FileUpload.FormFile != null)
             {
-                await FileUpload.FormFile.CopyToAsync(memoryStream);
-
-                if (memoryStream.Length < 2097152)
+                using (var memoryStream = new MemoryStream())
                 {
-                    Trip.Map = memoryStream.ToArray();
+                    await FileUpload.FormFile.CopyToAsync(memoryStream);
 
-                    await _context.SaveChangesAsync();
+                    if (memoryStream.Length < 2097152)
+                    {
+                        Trip.Map = memoryStream.ToArray();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("FileUpload.FormFile", "The file is too large. Max size is 2 MB.");
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("FileUpload.FormFile", "The file is too large. Max size is 2 MB.");
-                }
-            }
             }
 
             if (!ModelState.IsValid || _context.Trips == null || Trip == null)

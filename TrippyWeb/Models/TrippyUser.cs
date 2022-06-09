@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace TrippyWeb.Model;
 
@@ -14,4 +14,5 @@ public class TrippyUser : IdentityUser
     public List<Trip>? OfferedTrips { get; set; }
     public int TripId { get; set; }
     public List<Trip>? JoinedTrips { get; set; }
+    public List<Review>? Reviews { get; set; }
 }
