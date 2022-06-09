@@ -94,6 +94,9 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
+                    @if (@item.FreeSpots <= @item.Passengers.Count()) {
+                        <span>NIEDOSTĘPNA!</span>
+                    }
                     <div class="d-flex flex-wrap justify-content-end">
                         <a asp-page="./Edit" asp-route-id="@item.TripID" class="btn btn-primary m-1"
                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i

@@ -48,7 +48,7 @@ public class Trip
     [Display(Name = "Price in PLN")]
     public double Price { get; set; }
     public List<Stop>? Stops { get; set; }
-    public List<TrippyUser>? Passengers { get; set; } = new List<TrippyUser>();
+    public List<TrippyUser> Passengers { get; set; } = new List<TrippyUser>();
 
     public bool NonSmoking { get; set; }
 

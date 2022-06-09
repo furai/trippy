@@ -9,7 +9,7 @@
 
 <div>
     <h4>Trip</h4>
-    @if (@HttpContext.User.Identity.Name != null)
+    @if (@HttpContext.User.Identity.Name != null || @Model.Trip.FreeSpots <= @Model.Trip.Passengers.Count())
     {
         <div class="d-flex flex-wrap justify-content-end">
             <form asp-page="./Details" asp-page-handler="JoinToTrip" method="post" asp-route-tripId="@Model.Trip.TripID"

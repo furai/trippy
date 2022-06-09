@@ -28,13 +28,11 @@ namespace TrippyWeb.Services
             {
                 if (_context.Trips != null)
                 {
-
                     Trip t = _context.Trips.Where(t => t.TripID == tripId).First();
                 
-                    TrippyUser user = _context.TrippyUsers.Where(u => u.UserName.Equals(userId)).First();
-            
                     if (t.FreeSpots > t.Passengers?.Count())
                     {
+                        TrippyUser user = _context.TrippyUsers.Where(u => u.UserName.Equals(userId)).First();
                         t.Passengers.Add(user);
                     }
 
