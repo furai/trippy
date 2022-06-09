@@ -10,6 +10,7 @@ public class TrippyWebDbContext : IdentityDbContext
     public DbSet<Trip>? Trips { get; set; }
     public DbSet<TrippyUser>? TrippyUsers { get; set; }
     public DbSet<Stop>? Stops { get; set; }
+    public DbSet<Review>? Reviews { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
