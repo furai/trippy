@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace TrippyWeb.Model;
 
@@ -24,6 +25,9 @@ public class Review
     [Range(1, 5, ErrorMessage = "Value for {0} must be between {1} and {2}")]
     public int Punctuality { get; set; }
 
-    public int TripId { get; set; }
-    public Trip Trip { get; set; } = null!;
+    [ValidateNever]
+    public string UserID { get; set; } = null!;
+
+    [ValidateNever]
+    public TrippyUser User { get; set; } = null!;
 }
