@@ -9,13 +9,15 @@
 
 <div>
     <h4>Trip</h4>
-
-    <div class="d-flex flex-wrap justify-content-end">
-        <form asp-page="./Details" asp-page-handler="JoinToTrip" method="post" asp-route-tripId="@Model.Trip.TripID"
+    @if (@HttpContext.User.Identity.Name != null)
+    {
+        <div class="d-flex flex-wrap justify-content-end">
+            <form asp-page="./Details" asp-page-handler="JoinToTrip" method="post" asp-route-tripId="@Model.Trip.TripID"
             asp-route-userId="@HttpContext.User.Identity.Name">
-            <button class="btn btn-primary"><i class="bi bi-plus-circle"></i>Join</button>
-        </form>
-    </div>
+                <button class="btn btn-primary"><i class="bi bi-plus-circle"></i>Join</button>
+            </form>
+        </div>
+    }
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
