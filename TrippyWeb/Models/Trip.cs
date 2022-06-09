@@ -37,7 +37,7 @@ public class Trip
     public int FreeSpots { get; set; }
 
     [ValidateNever]
-    public string OwnerId { get; set; } = null!;
+    public string OwnerID { get; set; } = null!;
 
     [ValidateNever]
     public TrippyUser Owner { get; set; } = null!;
