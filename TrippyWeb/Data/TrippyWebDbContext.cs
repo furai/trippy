@@ -17,7 +17,15 @@ public class TrippyWebDbContext : IdentityDbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Trip>()
-            .Property(p => p.EndDate)
+            .Property(t => t.EndDate)
             .HasComputedColumnSql("DATE_ADD(StartDate, INTERVAL DurationInMinutes MINUTE)", stored: true);
+
+        modelBuilder.Entity<Message>()
+            .Property(m => m.CreatedDate)
+            .HasDefaultValueSql("now()");
+
+        modelBuilder.Entity<Review>()
+            .Property(r => r.CreatedDate)
+            .HasDefaultValueSql("now()");
     }
 }

@@ -9,6 +9,9 @@ public class Message
     [Key]
     public int MessageID { get; set; }
 
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    public DateTime CreatedDate { get; set; }
+
     [Required]
     public string Content { get; set; } = String.Empty;
     public int TripId { get; set; }

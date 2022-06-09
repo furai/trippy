@@ -30,4 +30,7 @@ public class Review
 
     [ValidateNever]
     public TrippyUser User { get; set; } = null!;
+
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    public DateTime CreatedDate { get; set; }
 }
