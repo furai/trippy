@@ -4,7 +4,8 @@ Application's aim is to provide a portal for carpooling. Drivers should be able 
 
 ## Requirements
 
-* Globally installed dotnet and dotnet-ef.
+* System installation of `dotnet:6.0.300` and `dotnet-ef:6.0.5`.
+* On linux install `libgdiplus` which is required for PDFs.
 * Docker.
 * Bootstrap v5.1.3
 * Dotnet libraries:
