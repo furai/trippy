@@ -14,8 +14,6 @@
         <form method="post" enctype="multipart/form-data">
             <div class="row">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Trip.TripID" />
-                <input type="hidden" asp-for="Trip.OwnerId" />
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                         <input asp-for="Trip.Beginning" class="form-control" />
