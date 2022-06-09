@@ -112,7 +112,7 @@ namespace TrippyWeb.Pages.Trips
                 return NotFound();
             }
 
-            Trip = _tripService.JoinToTrip(tripId, userId).First();
+            Trip = await _tripService.JoinToTrip(tripId, userId).FirstOrDefaultAsync();
             //zapis do listy jest tylko chwilowy
 
             if (Trip == null)
