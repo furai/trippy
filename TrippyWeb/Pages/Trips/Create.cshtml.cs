@@ -1,9 +1,9 @@
 #nullable disable
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using TrippyWeb.Data;
 using TrippyWeb.Model;
 
@@ -31,13 +31,35 @@ public class CreateModel : PageModel
     [BindProperty]
     public Trip Trip { get; set; } = default!;
 
+    [BindProperty]
+    public BufferedFileUpload FileUpload { get; set; }
+
     public async Task<IActionResult> OnPostAsync()
     {
         var user = await _userManager.GetUserAsync(User);
 
         Trip.Owner = user;
 
-        if (_context.Trips == null || Trip == null)
+        if (FileUpload.FormFile != null)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await FileUpload.FormFile.CopyToAsync(memoryStream);
+
+                if (memoryStream.Length < 2097152)
+                {
+                    Trip.Map = memoryStream.ToArray();
+
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    ModelState.AddModelError("FileUpload.FormFile", "The file is too large. Max size is 2 MB.");
+                }
+            }
+        }
+
+        if (!ModelState.IsValid || _context.Trips == null || Trip == null)
         {
             _logger.LogInformation("Model is invalid.");
 
@@ -49,5 +71,11 @@ public class CreateModel : PageModel
         TempData["success"] = "Trip created successfully!";
 
         return RedirectToPage("./Index");
+    }
+
+    public class BufferedFileUpload
+    {
+        [Display(Name = "Trip Image")]
+        public IFormFile FormFile { get; set; }
     }
 }

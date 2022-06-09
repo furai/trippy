@@ -19,6 +19,11 @@ namespace TrippyWeb.Pages.Trips
         [BindProperty]
         public Trip Trip { get; set; }
 
+        [BindProperty]
+        public CreateModel.BufferedFileUpload FileUpload { get; set; }
+
+        public string MapImage { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -32,6 +37,12 @@ namespace TrippyWeb.Pages.Trips
             {
                 return NotFound();
             }
+
+            if (Trip.Map != null)
+            {
+                MapImage = "data:image/png;base64," + Convert.ToBase64String(Trip.Map, 0, Trip.Map.Length);
+            }
+
             return Page();
         }
 
@@ -39,7 +50,25 @@ namespace TrippyWeb.Pages.Trips
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (_context.Trips == null || Trip == null)
+            if(FileUpload.FormFile !=null){
+            using (var memoryStream = new MemoryStream())
+            {
+                await FileUpload.FormFile.CopyToAsync(memoryStream);
+
+                if (memoryStream.Length < 2097152)
+                {
+                    Trip.Map = memoryStream.ToArray();
+
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    ModelState.AddModelError("FileUpload.FormFile", "The file is too large. Max size is 2 MB.");
+                }
+            }
+            }
+
+            if (!ModelState.IsValid || _context.Trips == null || Trip == null)
             {
                 return Page();
             }

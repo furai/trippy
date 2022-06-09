@@ -17,6 +17,7 @@ namespace TrippyWeb.Pages.Trips
         }
 
         public Trip Trip { get; set; }
+        public string MapImage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,6 +32,12 @@ namespace TrippyWeb.Pages.Trips
             {
                 return NotFound();
             }
+
+            if (Trip.Map != null)
+            {
+                MapImage = "data:image/png;base64," + Convert.ToBase64String(Trip.Map, 0, Trip.Map.Length);
+            }
+
             return Page();
         }
     }
