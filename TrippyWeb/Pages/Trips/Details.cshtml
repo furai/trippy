@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Details";
+    var Remaining = Model.Trip.FreeSpots - Model.Trip.Passengers.Count;
+    var EnabledJoin = Remaining < 1 || Model.Trip.Owner.Name == User.Identity.Name || Model.Trip.Passengers.Where(p => p.Name == User.Identity.Name).FirstOrDefault() != null;
 }
 
 <partial name="../Shared/_Toast" />
@@ -10,16 +12,17 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Trip</h4>
-    @if (@HttpContext.User.Identity.Name != null || @Model.Trip.FreeSpots <= @Model.Trip.Passengers.Count())
-    {
-        <div class="d-flex flex-wrap justify-content-end">
-            <form asp-page="./Details" asp-page-handler="JoinToTrip" method="post" asp-route-tripId="@Model.Trip.TripID"
-            asp-route-userId="@HttpContext.User.Identity.Name">
-                <button class="btn btn-primary"><i class="bi bi-plus-circle"></i>Join</button>
+    <div class="row align-items-center mb-3">
+        <div class="col-auto">
+            <h4>Trip</h4>
+        </div>
+        <div class="col-auto ms-auto">
+            <form asp-page="./Details" asp-page-handler="JoinToTrip" method="post"
+                asp-route-tripId="@Model.Trip.TripID">
+                <button class="btn btn-primary" disabled="@EnabledJoin"><i class="bi bi-plus-circle"></i>Join</button>
             </form>
         </div>
-    }
+    </div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -70,19 +73,31 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Trip.Price)
         </dd>
-        @if (@Model.Trip.Passengers != null && @Model.Trip.Passengers.Count() > 0)
-        {
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Trip.Passengers)
-            </dt>
-
-            @foreach (var item in @Model.Trip.Passengers)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.FreeSpots)
+        </dt>
+        <dd class="col-sm-10">
+            @Remaining
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.Passengers)
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.Trip.Passengers != null && @Model.Trip.Passengers.Count() > 0)
             {
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Trip.Passengers)
-                </dd>
+                <ul>
+                    @foreach (var item in @Model.Trip.Passengers)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
             }
-        }
+            else
+            {
+                <span>No passengers.</span>
+            }
+        </dd>
+
 
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Trip.Map)

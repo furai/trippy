@@ -1,5 +1,6 @@
 #nullable disable
 using GemBox.Document;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +14,13 @@ namespace TrippyWeb.Pages.Trips
     {
         private readonly TrippyWebDbContext _context;
         private readonly ITripService _tripService;
+        private readonly UserManager<TrippyUser> _userManager;
 
-        public DetailsModel(TrippyWebDbContext context, ITripService tripService)
+        public DetailsModel(TrippyWebDbContext context, ITripService tripService, UserManager<TrippyUser> userManager)
         {
             _context = context;
             _tripService = tripService;
+            _userManager = userManager;
         }
 
         public TrippyUser TrippyUser { get; set; }
@@ -25,14 +28,14 @@ namespace TrippyWeb.Pages.Trips
         public string MapImage { get; set; }
         public FileResult PDF { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? tripid)
         {
-            if (id == null)
+            if (tripid == null)
             {
                 return NotFound();
             }
 
-            Trip = await _context.Trips.Include(t => t.Owner).FirstOrDefaultAsync(m => m.TripID == id);
+            Trip = await _context.Trips.Include(t => t.Owner).Include(t => t.Passengers).FirstOrDefaultAsync(m => m.TripID == tripid);
 
             if (Trip == null)
             {
@@ -46,14 +49,14 @@ namespace TrippyWeb.Pages.Trips
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDownloadPDFAsync(int? id)
+        public async Task<IActionResult> OnPostDownloadPDFAsync(int? tripid)
         {
-            if (id == null)
+            if (tripid == null)
             {
                 return NotFound();
             }
 
-            Trip = await _context.Trips.Include(t => t.Owner).FirstOrDefaultAsync(m => m.TripID == id);
+            Trip = await _context.Trips.Include(t => t.Owner).FirstOrDefaultAsync(m => m.TripID == tripid);
 
             if (Trip == null)
             {
@@ -129,7 +132,7 @@ namespace TrippyWeb.Pages.Trips
            NonSmoking
         </dt>
         <dd>
-           {(Trip.NonSmoking ? "true" : "false" )}
+           {(Trip.NonSmoking ? "true" : "false")}
         </dd>
         <dt>
             Start Date
@@ -176,22 +179,44 @@ namespace TrippyWeb.Pages.Trips
             }
         }
 
-        public async Task<IActionResult> OnPostJoinToTripAsync(int? tripId, string? userId)
+        public async Task<IActionResult> OnPostJoinToTripAsync(int? tripid)
         {
-            if (tripId == null || userId == null)
+            if (!User.Identity.IsAuthenticated)
             {
-                return NotFound();
+                TempData["success"] = "Log in first.";
+                return Page();
             }
 
-            Trip = await _tripService.JoinToTrip(tripId, userId).FirstOrDefaultAsync();
-            //zapis do listy jest tylko chwilowy
+            if (tripid == null)
+            {
+                return Page();
+            }
+
+            Trip = await _context.Trips.Include(t => t.Owner).FirstOrDefaultAsync(m => m.TripID == tripid);
 
             if (Trip == null)
             {
                 return NotFound();
             }
 
+            if (Trip.Map != null)
+            {
+                MapImage = "data:image/png;base64," + Convert.ToBase64String(Trip.Map, 0, Trip.Map.Length);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            var userId = await _userManager.GetUserNameAsync(user);
+
+            var joined = _tripService.JoinToTrip(tripid, userId);
+
+            if (!joined)
+            {
+                TempData["success"] = "Can't join trip.";
+                return Page();
+            }
+
             await _context.SaveChangesAsync();
+            TempData["success"] = "Successfully joined trip.";
 
             return Page();
         }
