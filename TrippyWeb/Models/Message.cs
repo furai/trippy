@@ -11,9 +11,10 @@ public class Message
 
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime CreatedDate { get; set; }
-
     [Required]
     public string Content { get; set; } = String.Empty;
-    public int TripId { get; set; }
+    public int TripID { get; set; }
     public Trip Trip { get; set; } = null!;
+
+    public string UserName{ get; set;} = String.Empty;
 }
