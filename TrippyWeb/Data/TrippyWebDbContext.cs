@@ -9,7 +9,6 @@ public class TrippyWebDbContext : IdentityDbContext
     public TrippyWebDbContext(DbContextOptions<TrippyWebDbContext> options) : base(options) { }
     public DbSet<Trip>? Trips { get; set; }
     public DbSet<TrippyUser>? TrippyUsers { get; set; }
-    public DbSet<Stop>? Stops { get; set; }
     public DbSet<Review>? Reviews { get; set; }
     public DbSet<Message>? Messages { get; set; }
 

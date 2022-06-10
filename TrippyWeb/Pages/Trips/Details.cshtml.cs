@@ -28,7 +28,7 @@ namespace TrippyWeb.Pages.Trips
         public string MapImage { get; set; }
         public FileResult PDF { get; set; }
         public string UserName { get; set; }
-        public bool IsPassenger { get; set; }
+        public bool IsPassenger { get; set; } = false;
 
         public async Task<IActionResult> OnGetAsync(int? tripid)
         {
@@ -50,9 +50,12 @@ namespace TrippyWeb.Pages.Trips
             }
 
             var user = await _userManager.GetUserAsync(User);
-            UserName = await _userManager.GetUserNameAsync(user);
 
-            IsPassenger = Trip.Passengers.Where(p => p.Name == UserName).FirstOrDefault() != null;
+            if (user != null)
+            {
+                UserName = await _userManager.GetUserNameAsync(user);
+                IsPassenger = Trip.Passengers.Where(p => p.Name == UserName).FirstOrDefault() != null;
+            }
 
             return Page();
         }
@@ -119,16 +122,16 @@ namespace TrippyWeb.Pages.Trips
     {(MapImage != null ? $"<div class=\"img-wrapper\"><img height=\"300px\" src=\"{MapImage}\" ></div>" : "")}
     <dl>
         <dt>
-           Beginning
+           Where
         </dt>
         <dd>
-            {Trip.Beginning}
+            <strong>From:</strong> {Trip.Beginning}; <strong>To:</strong> {Trip.Destination}
         </dd>
         <dt>
-            Destination
+            Additional Stops
         </dt>
         <dd>
-            {Trip.Destination}
+            {Trip.Stops}
         </dd>
         <dt>
            Duration In Minutes
@@ -143,16 +146,10 @@ namespace TrippyWeb.Pages.Trips
            {(Trip.NonSmoking ? "true" : "false")}
         </dd>
         <dt>
-            Start Date
+            Date
         </dt>
         <dd>
-            {Trip.StartDate}
-        </dd>
-        <dt>
-            End Date
-        </dt>
-        <dd>
-            {Trip.EndDate}
+            {Trip.StartDate} - {Trip.EndDate}
         </dd>
         <dt>
             Owner
