@@ -47,7 +47,9 @@ public class Trip
     [Range(0.0, double.MaxValue, ErrorMessage = "Value for {0} must be a positive floating point number.")]
     [Display(Name = "Price in PLN")]
     public double Price { get; set; }
-    public List<Stop>? Stops { get; set; }
+
+    [Display(Name = "Additional Stops")]
+    public string? Stops { get; set; }
     public List<Message>? Messages { get; set; }
     public List<TrippyUser> Passengers { get; set; } = new List<TrippyUser>();
     public bool NonSmoking { get; set; }
