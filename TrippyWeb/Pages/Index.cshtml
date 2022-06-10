@@ -8,9 +8,20 @@
 
 <partial name="../Shared/_Toast" />
 
+<h1>Offered trips</h1>
 <div class="row align-items-center mb-3">
     <div class="col-auto">
-        <h1>Offered trips</h1>
+        <div class="nav-item dropdown">
+            <a class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                aria-expanded="false">@(String.IsNullOrWhiteSpace(HttpContext.Request.Query["filter"]) ? "All" : HttpContext.Request.Query["filter"])</a>
+            <div class="dropdown-menu">
+                <a asp-page="/Index" class="dropdown-item">All</a>
+                <a asp-page="/Index" asp-route-filter="Active" class="dropdown-item">Active</a>
+                <a asp-page="/Index" asp-route-filter="Inactive" class="dropdown-item">Inactive</a>
+                <a asp-page="/Index" asp-route-filter="New" class="dropdown-item">New</a>
+                <a asp-page="/Index" asp-route-filter="Old" class="dropdown-item">Old</a>
+            </div>
+        </div>
     </div>
     <div class="col-auto ms-auto">
         <a asp-page="/Trips/Create" class="btn btn-primary mx-auto"><i class="bi bi-plus-circle"></i> Create New</a>
@@ -53,54 +64,54 @@
         <tbody>
             @if (Model.TripsList.Count == 0)
             {
-                <tr>
-                    <td class="text-center" colspan="10">No trips found.</td>
-                </tr>
+                    <tr>
+                        <td class="text-center" colspan="10">No trips found.</td>
+                    </tr>
             }
             @foreach (var item in Model.TripsList)
             {
                 i++;
                 var Remaining = item.FreeSpots - item.Passengers.Count;
-                <tr class="@(Remaining < 1 ? "table-danger": "")">
-                    <th scope="row">@i</th>
-                    <td>
+                    <tr class="@(Remaining < 1 ? "table-danger": "")">
+                        <th scope="row">@i</th>
+                        <td>
                         @Html.DisplayFor(modelItem => item.Beginning)
-                    </td>
-                    <td>
+                        </td>
+                        <td>
                         @Html.DisplayFor(modelItem => item.Destination)
-                    </td>
-                    <td>
+                        </td>
+                        <td>
                         @Remaining
-                    </td>
-                    <td>
+                        </td>
+                        <td>
                         @Html.DisplayFor(modelItem => item.StartDate)
-                    </td>
-                    <td>
+                        </td>
+                        <td>
                         @Html.DisplayFor(modelItem => item.DurationInMinutes)
-                    </td>
-                    <td>
+                        </td>
+                        <td>
                         @Html.DisplayFor(modelItem => item.Owner.Name)
-                    </td>
-                    <td>
-                        <input checked="@item.NonSmoking" disabled="disabled" type="checkbox" class="form-check-input">
-                    </td>
-                    <td>
+                        </td>
+                        <td>
+                            <input checked="@item.NonSmoking" disabled="disabled" type="checkbox" class="form-check-input">
+                        </td>
+                        <td>
                         @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        <div class="d-flex flex-wrap justify-content-end">
-                            <a asp-page="./Edit" asp-route-id="@item.TripID" class="btn btn-primary m-1"
+                        </td>
+                        <td>
+                            <div class="d-flex flex-wrap justify-content-end">
+                                <a asp-page="/Trips/Edit" asp-route-id="@item.TripID" class="btn btn-primary m-1"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                                 class="bi bi-pencil-square"></i><span class="d-none d-md-inline"> Edit</span></a>
-                            <a asp-page="./Details" asp-route-tripid="@item.TripID" class="btn btn-primary m-1"
+                                <a asp-page="/Trips/Details" asp-route-tripid="@item.TripID" class="btn btn-primary m-1"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details"><i
                                 class="bi bi-info-circle"></i><span class="d-none d-md-inline"> Details</span></a>
-                            <a asp-page="./Delete" asp-route-id="@item.TripID" class="btn btn-danger m-1"
+                                <a asp-page="/Trips/Delete" asp-route-id="@item.TripID" class="btn btn-danger m-1"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create"><i
                                 class="bi bi-trash"></i><span class="d-none d-md-inline"> Delete</span></a>
-                        </div>
-                    </td>
-                </tr>
+                            </div>
+                        </td>
+                    </tr>
             }
         </tbody>
     </table>
