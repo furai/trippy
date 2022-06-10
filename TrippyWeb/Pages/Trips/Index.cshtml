@@ -53,7 +53,8 @@
         @foreach (var item in Model.TripsList)
         {
             i++;
-            <tr>
+            var Remaining = item.FreeSpots - item.Passengers.Count;
+            <tr class="@(Remaining < 1 ? "table-danger": "")">
                 <th scope="row">@i</th>
                 <td>
                     @Html.DisplayFor(modelItem => item.Beginning)
@@ -62,7 +63,7 @@
                     @Html.DisplayFor(modelItem => item.Destination)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FreeSpots)
+                    @Remaining
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.StartDate)
@@ -80,10 +81,6 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @if (@item.FreeSpots <= @item.Passengers.Count())
-                    {
-                        <span>NIEDOSTĘPNA!</span>
-                    }
                     <div class="d-flex flex-wrap justify-content-end">
                         <a asp-page="./Edit" asp-route-id="@item.TripID" class="btn btn-primary m-1"
                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
