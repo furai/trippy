@@ -11,7 +11,7 @@ using TrippyWeb.Data;
 namespace TrippyWeb.Migrations
 {
     [DbContext(typeof(TrippyWebDbContext))]
-    [Migration("20220610094944_InitialMigration")]
+    [Migration("20220610215828_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -238,12 +238,16 @@ namespace TrippyWeb.Migrations
                         .HasColumnType("datetime(6)")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("TripId")
+                    b.Property<int>("TripID")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("MessageID");
 
-                    b.HasIndex("TripId");
+                    b.HasIndex("TripID");
 
                     b.ToTable("Message");
                 });
@@ -281,26 +285,6 @@ namespace TrippyWeb.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Review");
-                });
-
-            modelBuilder.Entity("TrippyWeb.Model.Stop", b =>
-                {
-                    b.Property<int>("StopID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("TripId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StopID");
-
-                    b.HasIndex("TripId");
-
-                    b.ToTable("Stop");
                 });
 
             modelBuilder.Entity("TrippyWeb.Model.Trip", b =>
@@ -346,6 +330,9 @@ namespace TrippyWeb.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Stops")
+                        .HasColumnType("longtext");
 
                     b.HasKey("TripID");
 
@@ -438,7 +425,7 @@ namespace TrippyWeb.Migrations
                 {
                     b.HasOne("TrippyWeb.Model.Trip", "Trip")
                         .WithMany("Messages")
-                        .HasForeignKey("TripId")
+                        .HasForeignKey("TripID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -454,17 +441,6 @@ namespace TrippyWeb.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TrippyWeb.Model.Stop", b =>
-                {
-                    b.HasOne("TrippyWeb.Model.Trip", "Trip")
-                        .WithMany("Stops")
-                        .HasForeignKey("TripId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Trip");
                 });
 
             modelBuilder.Entity("TrippyWeb.Model.Trip", b =>
@@ -496,8 +472,6 @@ namespace TrippyWeb.Migrations
             modelBuilder.Entity("TrippyWeb.Model.Trip", b =>
                 {
                     b.Navigation("Messages");
-
-                    b.Navigation("Stops");
                 });
 
             modelBuilder.Entity("TrippyWeb.Model.TrippyUser", b =>
