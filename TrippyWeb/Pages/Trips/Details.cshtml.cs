@@ -28,7 +28,7 @@ namespace TrippyWeb.Pages.Trips
         public string MapImage { get; set; }
         public FileResult PDF { get; set; }
         public string UserName { get; set; }
-        public bool IsPassenger { get; set; }
+        public bool IsPassenger { get; set; } = false;
 
         public async Task<IActionResult> OnGetAsync(int? tripid)
         {
@@ -50,9 +50,12 @@ namespace TrippyWeb.Pages.Trips
             }
 
             var user = await _userManager.GetUserAsync(User);
-            UserName = await _userManager.GetUserNameAsync(user);
 
-            IsPassenger = Trip.Passengers.Where(p => p.Name == UserName).FirstOrDefault() != null;
+            if (user != null)
+            {
+                UserName = await _userManager.GetUserNameAsync(user);
+                IsPassenger = Trip.Passengers.Where(p => p.Name == UserName).FirstOrDefault() != null;
+            }
 
             return Page();
         }
