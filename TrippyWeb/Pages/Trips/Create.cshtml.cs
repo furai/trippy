@@ -95,7 +95,7 @@ public class CreateModel : PageModel
         await _context.SaveChangesAsync();
         TempData["success"] = "Trip created successfully!";
 
-        return RedirectToPage("./Index");
+        return RedirectToPage("../Index");
     }
 
     public class BufferedFileUpload

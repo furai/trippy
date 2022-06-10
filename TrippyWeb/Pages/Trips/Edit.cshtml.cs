@@ -91,7 +91,7 @@ public class EditModel : PageModel
             }
         }
 
-        return RedirectToPage("./Index");
+        return RedirectToPage("../Index");
     }
 
     private bool TripExists(int id)

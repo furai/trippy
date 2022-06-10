@@ -53,6 +53,6 @@ public class DeleteModel : PageModel
             TempData["success"] = "Trip deleted successfully!";
         }
 
-        return RedirectToPage("./Index");
+        return RedirectToPage("../Index");
     }
 }

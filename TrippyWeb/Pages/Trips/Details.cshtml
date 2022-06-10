@@ -142,7 +142,7 @@
 </div>
 <div class="mb-3">
     <a asp-page="./Edit" asp-route-id="@Model.Trip.TripID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="../Index">Back to List</a>
 </div>
 <form asp-page-handler="DownloadPDF" method="post" asp-route-tripid="@Model.Trip.TripID">
     <button class="btn btn-primary">Download PDF</button>
