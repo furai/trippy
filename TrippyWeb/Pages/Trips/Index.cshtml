@@ -6,29 +6,15 @@
     int i = 0;
 }
 
-@if (TempData["success"] != null)
-{
-    <div class="toast-wrapper">
-    <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
-        <div class="d-flex">
-            <div class="toast-body">
-                @TempData["success"]
-            </div>
-            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-</div>
-}
+<partial name="../Shared/_Toast" />
 
 <div class="row align-items-center mb-3">
     <div class="col-auto">
         <h1>Index</h1>
     </div>
-    @if (@HttpContext.User.Identity.Name != null) {
     <div class="col-auto ms-auto">
         <a asp-page="Create" class="btn btn-primary mx-auto"><i class="bi bi-plus-circle"></i> Create New</a>
     </div>
-    }
 </div>
 <table class="table table-hover table-light align-middle">
     <thead>
@@ -67,7 +53,8 @@
         @foreach (var item in Model.TripsList)
         {
             i++;
-            <tr>
+            var Remaining = item.FreeSpots - item.Passengers.Count;
+            <tr class="@(Remaining < 1 ? "table-danger": "")">
                 <th scope="row">@i</th>
                 <td>
                     @Html.DisplayFor(modelItem => item.Beginning)
@@ -76,7 +63,7 @@
                     @Html.DisplayFor(modelItem => item.Destination)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FreeSpots)
+                    @Remaining
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.StartDate)
@@ -94,14 +81,11 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @if (@item.FreeSpots <= @item.Passengers.Count()) {
-                        <span>NIEDOSTĘPNA!</span>
-                    }
                     <div class="d-flex flex-wrap justify-content-end">
                         <a asp-page="./Edit" asp-route-id="@item.TripID" class="btn btn-primary m-1"
                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
                             class="bi bi-pencil-square"></i><span class="d-none d-md-inline"> Edit</span></a>
-                        <a asp-page="./Details" asp-route-id="@item.TripID" class="btn btn-primary m-1"
+                        <a asp-page="./Details" asp-route-tripid="@item.TripID" class="btn btn-primary m-1"
                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details"><i
                             class="bi bi-info-circle"></i><span class="d-none d-md-inline"> Details</span></a>
                         <a asp-page="./Delete" asp-route-id="@item.TripID" class="btn btn-danger m-1"

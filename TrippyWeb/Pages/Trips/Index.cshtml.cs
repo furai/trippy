@@ -19,7 +19,7 @@ namespace TrippyWeb.Pages.Trips
 
         public async Task OnGetAsync()
         {
-            TripsList = await _context.Trips.Include(t => t.Owner).ToListAsync();
+            TripsList = await _context.Trips.Include(t => t.Owner).Include(t => t.Passengers).ToListAsync();
         }
     }
 }
