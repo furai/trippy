@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Details";
     var Remaining = Model.Trip.FreeSpots - Model.Trip.Passengers.Count;
-    var EnabledJoin = Remaining < 1 || Model.Trip.Owner.Name == User.Identity.Name || Model.Trip.Passengers.Where(p => p.Name == User.Identity.Name).FirstOrDefault() != null;
+    var EnabledJoin = Remaining < 1 || Model.Trip.Owner.Name == Model.UserName;
 }
 
 <partial name="../Shared/_Toast" />
@@ -17,10 +17,18 @@
             <h4>Trip</h4>
         </div>
         <div class="col-auto ms-auto">
-            <form asp-page="./Details" asp-page-handler="JoinToTrip" method="post"
+            @if (!Model.IsPassenger)
+            {
+                <form asp-page="./Details" asp-page-handler="JoinToTrip" asp-route-action="join" method="post"
                 asp-route-tripId="@Model.Trip.TripID">
-                <button class="btn btn-primary" disabled="@EnabledJoin"><i class="bi bi-plus-circle"></i>Join</button>
-            </form>
+                    <button class="btn btn-primary" disabled="@EnabledJoin"><i class="bi bi-plus-circle"></i> Join</button>
+                </form>
+            } else {
+                <form asp-page="./Details" asp-page-handler="JoinToTrip" asp-route-action="leave" method="post"
+                asp-route-tripId="@Model.Trip.TripID">
+                    <button class="btn btn-danger"><i class="bi bi-dash-circle"></i> Leave</button>
+                </form>
+            }
         </div>
     </div>
     <hr />

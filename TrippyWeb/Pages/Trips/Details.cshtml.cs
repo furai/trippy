@@ -27,6 +27,8 @@ namespace TrippyWeb.Pages.Trips
         public Trip Trip { get; set; }
         public string MapImage { get; set; }
         public FileResult PDF { get; set; }
+        public string UserName { get; set; }
+        public bool IsPassenger { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? tripid)
         {
@@ -46,6 +48,12 @@ namespace TrippyWeb.Pages.Trips
             {
                 MapImage = "data:image/png;base64," + Convert.ToBase64String(Trip.Map, 0, Trip.Map.Length);
             }
+
+            var user = await _userManager.GetUserAsync(User);
+            UserName = await _userManager.GetUserNameAsync(user);
+
+            IsPassenger = Trip.Passengers.Where(p => p.Name == UserName).FirstOrDefault() != null;
+
             return Page();
         }
 
@@ -179,7 +187,7 @@ namespace TrippyWeb.Pages.Trips
             }
         }
 
-        public async Task<IActionResult> OnPostJoinToTripAsync(int? tripid)
+        public async Task<IActionResult> OnPostJoinToTripAsync(int? tripid, string action)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -205,17 +213,36 @@ namespace TrippyWeb.Pages.Trips
 
             var user = await _userManager.GetUserAsync(User);
             var userId = await _userManager.GetUserNameAsync(user);
+            IsPassenger = Trip.Passengers.Where(p => p.Name == userId).FirstOrDefault() != null;
+            var success = false;
 
-            var joined = _tripService.JoinToTrip(tripid, userId);
-
-            if (!joined)
+            if (action.Equals("join"))
             {
-                TempData["success"] = "Can't join trip.";
+                success = _tripService.JoinToTrip(tripid, userId);
+            }
+
+            if (action.Equals("leave"))
+            {
+                success = _tripService.LeaveTrip(tripid, userId);
+            }
+
+            if (!success)
+            {
+                TempData["success"] = "Can't do that.";
                 return Page();
             }
 
             await _context.SaveChangesAsync();
-            TempData["success"] = "Successfully joined trip.";
+            if (action.Equals("join"))
+            {
+                TempData["success"] = "Successfully joined the trip.";
+                IsPassenger = true;
+            }
+            else
+            {
+                TempData["success"] = "Successfully left the trip.";
+                IsPassenger = false;
+            }
 
             return Page();
         }

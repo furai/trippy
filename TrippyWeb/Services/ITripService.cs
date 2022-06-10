@@ -6,5 +6,6 @@ namespace TrippyWeb.Services
     {
         public IQueryable<Trip>? GetActiveTrips();
         public bool JoinToTrip(int? tripId, string? userId);
+        public bool LeaveTrip(int? tripId, string? userId);
     }
 }
