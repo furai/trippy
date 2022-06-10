@@ -183,8 +183,7 @@ namespace TrippyWeb.Pages.Trips
         {
             if (!User.Identity.IsAuthenticated)
             {
-                TempData["success"] = "Log in first.";
-                return Page();
+                return Redirect("/Identity/Account/Login");
             }
 
             if (tripid == null)
