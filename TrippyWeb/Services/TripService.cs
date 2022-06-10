@@ -55,7 +55,7 @@ namespace TrippyWeb.Services
                 {
                     var t = _context.Trips.Include(t => t.Passengers).FirstOrDefault(m => m.TripID == tripId);
 
-                    if (t != null && t.FreeSpots > t.Passengers.Count && t.Passengers.Where(u => u.UserName.Equals(userId)).FirstOrDefault() != null)
+                    if (t != null && t.Passengers.Where(u => u.UserName.Equals(userId)).FirstOrDefault() != null)
                     {
                         TrippyUser user = _context.TrippyUsers.Where(u => u.UserName.Equals(userId)).First();
                         t.Passengers.Remove(user);
