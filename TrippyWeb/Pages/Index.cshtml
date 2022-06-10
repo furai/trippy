@@ -16,90 +16,92 @@
         <a asp-page="/Trips/Create" class="btn btn-primary mx-auto"><i class="bi bi-plus-circle"></i> Create New</a>
     </div>
 </div>
-<table class="table table-hover table-light align-middle">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TripsList[0].Beginning)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TripsList[0].Destination)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TripsList[0].FreeSpots)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TripsList[0].StartDate)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TripsList[0].DurationInMinutes)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TripsList[0].Owner)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TripsList[0].NonSmoking)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.TripsList[0].Price)
-            </th>
-            <th scope="col">
-                <div class="text-end me-1">Actions</div>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.TripsList.Count == 0)
-        {
+<div class="table-responsive">
+    <table class="table table-hover table-light align-middle">
+        <thead>
             <tr>
-                <td class="text-center" colspan="10">No trips found.</td>
+                <th scope="col">#</th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TripsList[0].Beginning)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TripsList[0].Destination)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TripsList[0].FreeSpots)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TripsList[0].StartDate)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TripsList[0].DurationInMinutes)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TripsList[0].Owner)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TripsList[0].NonSmoking)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TripsList[0].Price)
+                </th>
+                <th scope="col">
+                    <div class="text-end me-1">Actions</div>
+                </th>
             </tr>
-        }
-        @foreach (var item in Model.TripsList)
-        {
-            i++;
-            var Remaining = item.FreeSpots - item.Passengers.Count;
-            <tr class="@(Remaining < 1 ? "table-danger": "")">
-                <th scope="row">@i</th>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Beginning)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Destination)
-                </td>
-                <td>
-                    @Remaining
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DurationInMinutes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Owner.Name)
-                </td>
-                <td>
-                    <input checked="@item.NonSmoking" disabled="disabled" type="checkbox" class="form-check-input">
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <div class="d-flex flex-wrap justify-content-end">
-                        <a asp-page="./Edit" asp-route-id="@item.TripID" class="btn btn-primary m-1"
-                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
-                            class="bi bi-pencil-square"></i><span class="d-none d-md-inline"> Edit</span></a>
-                        <a asp-page="./Details" asp-route-tripid="@item.TripID" class="btn btn-primary m-1"
-                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details"><i
-                            class="bi bi-info-circle"></i><span class="d-none d-md-inline"> Details</span></a>
-                        <a asp-page="./Delete" asp-route-id="@item.TripID" class="btn btn-danger m-1"
-                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create"><i
-                            class="bi bi-trash"></i><span class="d-none d-md-inline"> Delete</span></a>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @if (Model.TripsList.Count == 0)
+            {
+                <tr>
+                    <td class="text-center" colspan="10">No trips found.</td>
+                </tr>
+            }
+            @foreach (var item in Model.TripsList)
+            {
+                i++;
+                var Remaining = item.FreeSpots - item.Passengers.Count;
+                <tr class="@(Remaining < 1 ? "table-danger": "")">
+                    <th scope="row">@i</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Beginning)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Destination)
+                    </td>
+                    <td>
+                        @Remaining
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DurationInMinutes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Owner.Name)
+                    </td>
+                    <td>
+                        <input checked="@item.NonSmoking" disabled="disabled" type="checkbox" class="form-check-input">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <div class="d-flex flex-wrap justify-content-end">
+                            <a asp-page="./Edit" asp-route-id="@item.TripID" class="btn btn-primary m-1"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i
+                                class="bi bi-pencil-square"></i><span class="d-none d-md-inline"> Edit</span></a>
+                            <a asp-page="./Details" asp-route-tripid="@item.TripID" class="btn btn-primary m-1"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details"><i
+                                class="bi bi-info-circle"></i><span class="d-none d-md-inline"> Details</span></a>
+                            <a asp-page="./Delete" asp-route-id="@item.TripID" class="btn btn-danger m-1"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create"><i
+                                class="bi bi-trash"></i><span class="d-none d-md-inline"> Delete</span></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
