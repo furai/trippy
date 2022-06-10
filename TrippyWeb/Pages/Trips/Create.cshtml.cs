@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TrippyWeb.Data;
 using TrippyWeb.Model;
 
@@ -37,6 +38,7 @@ public class CreateModel : PageModel
     public async Task<IActionResult> OnPostAsync()
     {
         var user = await _userManager.GetUserAsync(User);
+        var username = await _userManager.GetUserNameAsync(user);
 
         Trip.Owner = user;
 
@@ -57,6 +59,29 @@ public class CreateModel : PageModel
                     ModelState.AddModelError("FileUpload.FormFile", "The file is too large. Max size is 2 MB.");
                 }
             }
+        }
+
+        var enddate = Trip.StartDate.AddMinutes(Trip.DurationInMinutes);
+        var overlappingTripsOwner = _context.Trips
+            .Where(t => t.Owner == user)
+            .Where(t => t.StartDate < enddate && t.EndDate > Trip.StartDate).ToList();
+
+        if (overlappingTripsOwner.Count > 0)
+        {
+            ModelState.AddModelError("Trip.StartDate", "You have created another trip that overlaps with this one.");
+            ModelState.AddModelError("Trip.DurationInMinutes", "You have created another trip that overlaps with this one.");
+        }
+
+        var overlappingTripsJoined = _context.Trips
+            .Include(t => t.Passengers)
+            .Where(
+                t => t.Passengers.Any(p => p.UserName.Equals(username))
+            ).Where(t => t.StartDate < enddate && t.EndDate > Trip.StartDate).ToList();
+
+        if (overlappingTripsJoined.Count > 0)
+        {
+            ModelState.AddModelError("Trip.StartDate", "You're taking part in another trip during that time.");
+            ModelState.AddModelError("Trip.DurationInMinutes", "You're taking part in another trip during that time.");
         }
 
         if (!ModelState.IsValid || _context.Trips == null || Trip == null)
