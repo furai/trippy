@@ -60,9 +60,9 @@ namespace TrippyWeb.Pages.Trips
             return Page();
         }
 
-        public async Task<IActionResult> OnGetRemovePassengerAsync(int? tripid, string? pid)
+        public async Task<IActionResult> OnGetRemovePassengerAsync(int? tripid, string pid)
         {
-            if (tripid == null || pid == null)
+            if (tripid == null || String.IsNullOrWhiteSpace(pid))
             {
                 return NotFound();
             }
@@ -93,18 +93,15 @@ namespace TrippyWeb.Pages.Trips
                 UserName = await _userManager.GetUserNameAsync(user);
                 IsPassenger = Trip.Passengers.Where(p => p.Name == UserName).FirstOrDefault() != null;
 
-                if (pid != null)
+                var passenger = Trip.Passengers.Where(p => p.UserName == pid).FirstOrDefault();
+
+                if (passenger == null)
                 {
-                    var passenger = Trip.Passengers.Where(p => p.UserName == pid).FirstOrDefault();
-
-                    if (passenger == null)
-                    {
-                        return NotFound();
-                    }
-
-                    Trip.Passengers.Remove(passenger);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
+
+                Trip.Passengers.Remove(passenger);
+                await _context.SaveChangesAsync();
             }
 
             return Page();
