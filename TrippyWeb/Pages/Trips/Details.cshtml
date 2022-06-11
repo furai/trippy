@@ -16,19 +16,31 @@
         <div class="col-auto">
             <h4>Trip</h4>
         </div>
-        <div class="col-auto ms-auto">
-            @if (!Model.IsPassenger)
-            {
-                <form asp-page="./Details" asp-page-handler="JoinToTrip" asp-route-action="join" method="post"
-                asp-route-tripId="@Model.Trip.TripID">
-                    <button class="btn btn-primary" disabled="@EnabledJoin"><i class="bi bi-plus-circle"></i> Join</button>
+        <div class="row">
+            <div class="col-auto">
+                <form asp-page="../Messages/Index" asp-page-handler="TripChat" asp-route-action="chat" method="get"
+                    asp-route-tripId="@Model.Trip.TripID">
+                    <button class="btn btn-primary"><i class="bi bi-plus-circle"></i>
+                        Chat</button>
                 </form>
-            } else {
-                <form asp-page="./Details" asp-page-handler="JoinToTrip" asp-route-action="leave" method="post"
-                asp-route-tripId="@Model.Trip.TripID">
-                    <button class="btn btn-danger"><i class="bi bi-dash-circle"></i> Leave</button>
-                </form>
-            }
+            </div>
+            <div class="col-auto ms-auto">
+                @if (!Model.IsPassenger)
+                {
+                    <form asp-page="./Details" asp-page-handler="JoinToTrip" asp-route-action="join" method="post"
+                    asp-route-tripId="@Model.Trip.TripID">
+                        <button class="btn btn-primary" disabled="@EnabledJoin"><i class="bi bi-plus-circle"></i>
+                            Join</button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-page="./Details" asp-page-handler="JoinToTrip" asp-route-action="leave" method="post"
+                    asp-route-tripId="@Model.Trip.TripID">
+                        <button class="btn btn-danger"><i class="bi bi-dash-circle"></i> Leave</button>
+                    </form>
+                }
+            </div>
         </div>
     </div>
     <hr />

@@ -15,11 +15,18 @@ namespace TrippyWeb.Pages.Messages
             _context = context;
         }
 
-        public IList<Message> MessageList { get; set; }
+        public IList<Message> MessageList { get; set; } = new List<Message>();
+        public int? TripID { get; set; }
 
-        public async Task OnGetAsync()
+
+        public async Task OnGetTripChatAsync(int? tripid)
         {
-            MessageList = await _context.Messages.Include(m => m.Trip).ToListAsync();
+            if (tripid != null)
+            {
+                MessageList = await _context.Messages.Include(m => m.Trip).Where(m => m.TripID == tripid).ToListAsync();
+                TripID = tripid;
+            }
+            
         }
     }
 }
