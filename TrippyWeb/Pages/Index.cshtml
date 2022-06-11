@@ -10,22 +10,39 @@
 
 <h1>Offered trips</h1>
 <div class="row align-items-center mb-3">
-    <div class="col-auto">
-        <div class="nav-item dropdown">
-            <a class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                aria-haspopup="true"
-                aria-expanded="false">@(String.IsNullOrWhiteSpace(HttpContext.Request.Query["filter"]) ? "All" :
-                HttpContext.Request.Query["filter"])</a>
-            <div class="dropdown-menu">
-                <a asp-page="/Index" class="dropdown-item">All</a>
-                <a asp-page="/Index" asp-route-filter="Active" class="dropdown-item">Active</a>
-                <a asp-page="/Index" asp-route-filter="Full" class="dropdown-item">Full</a>
-                <a asp-page="/Index" asp-route-filter="New" class="dropdown-item">New</a>
-                <a asp-page="/Index" asp-route-filter="Expired" class="dropdown-item">Expired</a>
+    <div class="col-md-10">
+        <form method="get">
+            <div class="row d-flex align-items-center">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="col-md-2 mb-3 md-mb-0">
+                    <label asp-for="Filter" class="control-label"></label>
+                    <select class="form-select" asp-for="Filter">
+                        <option>All</option>
+                        <option>Active</option>
+                        <option>Full</option>
+                        <option>New</option>
+                        <option>Expired</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-3 md-mb-0">
+                    <label asp-for="NonSmoking" class="control-label"></label>
+                    <select class="form-select" asp-for="NonSmoking">
+                        <option>Either</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-3 md-mb-0">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+                <div class="col-md-2 mb-3 md-mb-0 align-self-end">
+                    <button class="btn btn-primary" type="submit">Filter</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
-    <div class="col-auto ms-auto">
+    <div class="col-md-auto">
         <a asp-page="/Trips/Create" class="btn btn-primary mx-auto"><i class="bi bi-plus-circle"></i> Create New</a>
     </div>
 </div>
