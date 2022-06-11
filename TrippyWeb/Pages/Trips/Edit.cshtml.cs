@@ -94,6 +94,29 @@ public class EditModel : PageModel
         return RedirectToPage("../Index");
     }
 
+    public async Task<IActionResult> OnGetDeleteImageAsync(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        Trip = await _context.Trips.FirstOrDefaultAsync(m => m.TripID == id);
+
+        if (Trip == null)
+        {
+            return NotFound();
+        }
+
+        if (Trip.Map != null)
+        {
+           Trip.Map = null;
+           await _context.SaveChangesAsync();
+        }
+
+        return Page();
+    }
+
     private bool TripExists(int id)
     {
         return _context.Trips.Any(e => e.TripID == id);

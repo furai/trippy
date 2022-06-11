@@ -92,7 +92,14 @@
     <div class="col-md-4">
         @if (@Model.MapImage != null)
         {
-            <img src="@Model.MapImage" alt="Trip Map">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <a class="btn btn-danger" asp-page-handler="DeleteImage" asp-route-id="@Model.Trip.TripID"><i class="bi bi-trash"></i> Delete image</a>
+                </div>
+                <div class="col-12">
+                    <img src="@Model.MapImage" alt="Trip Map">
+                </div>
+            </div>
         }
         else
         {
@@ -106,5 +113,5 @@
 </div>
 
 @section Scripts {
-    <partial name="../../Pages/Shared/_ValidationScriptsPartial" />
+<partial name="../../Pages/Shared/_ValidationScriptsPartial" />
 }
