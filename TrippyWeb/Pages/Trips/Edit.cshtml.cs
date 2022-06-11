@@ -48,7 +48,7 @@ public class EditModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(int? id)
+    public async Task<IActionResult> OnPostAsync()
     {
         if (FileUpload.FormFile != null)
         {
