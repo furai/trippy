@@ -60,6 +60,56 @@ namespace TrippyWeb.Pages.Trips
             return Page();
         }
 
+        public async Task<IActionResult> OnGetRemovePassengerAsync(int? tripid, string? pid)
+        {
+            if (tripid == null || pid == null)
+            {
+                return NotFound();
+            }
+
+            Trip = await _context.Trips.Include(t => t.Owner).Include(t => t.Passengers).FirstOrDefaultAsync(m => m.TripID == tripid);
+
+            if (Trip == null)
+            {
+                return NotFound();
+            }
+
+            if (Trip.Map != null)
+            {
+                MapImage = "data:image/png;base64," + Convert.ToBase64String(Trip.Map, 0, Trip.Map.Length);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+
+
+            if (user != null)
+            {
+                UserName = await _userManager.GetUserNameAsync(user);
+                IsPassenger = Trip.Passengers.Where(p => p.Name == UserName).FirstOrDefault() != null;
+            }
+
+            if (Trip.Owner.UserName == UserName)
+            {
+                UserName = await _userManager.GetUserNameAsync(user);
+                IsPassenger = Trip.Passengers.Where(p => p.Name == UserName).FirstOrDefault() != null;
+
+                if (pid != null)
+                {
+                    var passenger = Trip.Passengers.Where(p => p.UserName == pid).FirstOrDefault();
+
+                    if (passenger == null)
+                    {
+                        return NotFound();
+                    }
+
+                    Trip.Passengers.Remove(passenger);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            return Page();
+        }
+
         public async Task<IActionResult> OnPostDownloadPDFAsync(int? tripid)
         {
             if (tripid == null)

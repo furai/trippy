@@ -4,7 +4,8 @@
 @{
     ViewData["Title"] = "Details";
     var Remaining = Model.Trip.FreeSpots - Model.Trip.Passengers.Count;
-    var EnabledJoin = Remaining < 1 || Model.Trip.Owner.Name == Model.UserName;
+    var IsOwner =  Model.Trip.Owner.UserName == Model.UserName;
+    var EnabledJoin = Remaining < 1 || IsOwner;
 }
 
 <partial name="../Shared/_Toast" />
@@ -111,10 +112,16 @@
         <dd class="col-sm-10">
             @if (@Model.Trip.Passengers != null && @Model.Trip.Passengers.Count() > 0)
             {
-                <ul>
+                <ul class="list-unstyled">
                     @foreach (var item in @Model.Trip.Passengers)
                     {
-                        <li>@item</li>
+                        <li>@item
+                            @if (IsOwner)
+                            {
+                              @: |
+                              <a asp-page-handler="RemovePassenger" asp-route-tripid="@Model.Trip.TripID" asp-route-pid="@item.UserName" class="link-danger">Remove</a>
+                            }
+                        </li>
                     }
                 </ul>
             }
