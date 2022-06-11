@@ -243,6 +243,8 @@ namespace TrippyWeb.Migrations
                     OwnerID = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Price = table.Column<double>(type: "double", precision: 5, scale: 2, nullable: false),
+                    Stops = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     NonSmoking = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Map = table.Column<byte[]>(type: "longblob", nullable: true)
                 },
@@ -267,36 +269,16 @@ namespace TrippyWeb.Migrations
                     CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false, defaultValueSql: "now()"),
                     Content = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    TripId = table.Column<int>(type: "int", nullable: false)
+                    TripID = table.Column<int>(type: "int", nullable: false),
+                    UserName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Message", x => x.MessageID);
                     table.ForeignKey(
-                        name: "FK_Message_Trip_TripId",
-                        column: x => x.TripId,
-                        principalTable: "Trip",
-                        principalColumn: "TripID",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Stop",
-                columns: table => new
-                {
-                    StopID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    TripId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stop", x => x.StopID);
-                    table.ForeignKey(
-                        name: "FK_Stop_Trip_TripId",
-                        column: x => x.TripId,
+                        name: "FK_Message_Trip_TripID",
+                        column: x => x.TripID,
                         principalTable: "Trip",
                         principalColumn: "TripID",
                         onDelete: ReferentialAction.Cascade);
@@ -367,19 +349,14 @@ namespace TrippyWeb.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Message_TripId",
+                name: "IX_Message_TripID",
                 table: "Message",
-                column: "TripId");
+                column: "TripID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_UserID",
                 table: "Review",
                 column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Stop_TripId",
-                table: "Stop",
-                column: "TripId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trip_OwnerID",
@@ -414,9 +391,6 @@ namespace TrippyWeb.Migrations
 
             migrationBuilder.DropTable(
                 name: "Review");
-
-            migrationBuilder.DropTable(
-                name: "Stop");
 
             migrationBuilder.DropTable(
                 name: "TripTrippyUser");

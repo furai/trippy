@@ -1,23 +1,25 @@
+#nullable disable
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using TrippyWeb.Data;
 using TrippyWeb.Model;
-using TrippyWeb.Services;
 
-namespace TrippyWeb.Pages;
-
-public class IndexModel : PageModel
+namespace TrippyWeb.Pages.Trips
 {
-    private readonly ILogger<IndexModel> _logger;
-    private readonly ITripService _tripService;
-    public IQueryable<Trip>? Records;
-
-    public IndexModel(ILogger<IndexModel> logger, ITripService tripService)
+    public class IndexModel : PageModel
     {
-        _logger = logger;
-        _tripService = tripService;
-    }
+        private readonly TrippyWebDbContext _context;
 
-    public void OnGet()
-    {
-        Records = _tripService.GetActiveTrips();
+        public IndexModel(TrippyWebDbContext context)
+        {
+            _context = context;
+        }
+
+        public IList<Trip> TripsList { get; set; }
+
+        public async Task OnGetAsync()
+        {
+            TripsList = await _context.Trips.Include(t => t.Owner).Include(t => t.Passengers).ToListAsync();
+        }
     }
 }
