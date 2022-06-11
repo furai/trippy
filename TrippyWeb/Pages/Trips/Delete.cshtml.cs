@@ -1,5 +1,6 @@
 #nullable disable
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,12 @@ namespace TrippyWeb.Pages.Trips;
 public class DeleteModel : PageModel
 {
     private readonly TrippyWebDbContext _context;
+    private readonly UserManager<TrippyUser> _userManager;
 
-    public DeleteModel(TrippyWebDbContext context)
+    public DeleteModel(TrippyWebDbContext context, UserManager<TrippyUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     [BindProperty]
@@ -33,6 +36,17 @@ public class DeleteModel : PageModel
         if (Trip == null)
         {
             return NotFound();
+        }
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user != null)
+        {
+            var userid = await _userManager.GetUserIdAsync(user);
+            if (userid != Trip.OwnerID)
+            {
+                TempData["success"] = "Can't delete. You're not owner of that trip.";
+                return RedirectToPage("../Index");
+            }
         }
         return Page();
     }

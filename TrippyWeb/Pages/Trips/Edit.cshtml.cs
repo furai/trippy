@@ -1,5 +1,6 @@
 #nullable disable
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,14 +13,17 @@ namespace TrippyWeb.Pages.Trips;
 public class EditModel : PageModel
 {
     private readonly TrippyWebDbContext _context;
+    private readonly UserManager<TrippyUser> _userManager;
 
-    public EditModel(TrippyWebDbContext context)
+    public EditModel(TrippyWebDbContext context, UserManager<TrippyUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     [BindProperty]
     public Trip Trip { get; set; }
+
 
     [BindProperty]
     public CreateModel.BufferedFileUpload FileUpload { get; set; }
@@ -33,7 +37,7 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        Trip = await _context.Trips.FirstOrDefaultAsync(m => m.TripID == id);
+        Trip = await _context.Trips.Include(t => t.Owner).FirstOrDefaultAsync(m => m.TripID == id);
 
         if (Trip == null)
         {
@@ -43,6 +47,17 @@ public class EditModel : PageModel
         if (Trip.Map != null)
         {
             MapImage = "data:image/png;base64," + Convert.ToBase64String(Trip.Map, 0, Trip.Map.Length);
+        }
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user != null)
+        {
+            var userid = await _userManager.GetUserIdAsync(user);
+            if (userid != Trip.OwnerID)
+            {
+                TempData["success"] = "Can't edit. You're not owner of that trip.";
+                return RedirectToPage("../Index");
+            }
         }
 
         return Page();
@@ -110,8 +125,8 @@ public class EditModel : PageModel
 
         if (Trip.Map != null)
         {
-           Trip.Map = null;
-           await _context.SaveChangesAsync();
+            Trip.Map = null;
+            await _context.SaveChangesAsync();
         }
 
         return Page();
