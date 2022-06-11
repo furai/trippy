@@ -18,8 +18,8 @@
         </div>
         <div class="row">
             <div class="col-auto">
-                <form asp-page="../Messages/Index" asp-page-handler="TripChat" asp-route-action="chat" method="get"
-                    asp-route-tripId="@Model.Trip.TripID">
+                <form asp-page="../Messages/Index" method="post"
+                    asp-route-tripid="@Model.Trip.TripID">
                     <button class="btn btn-primary"><i class="bi bi-plus-circle"></i>
                         Chat</button>
                 </form>

@@ -31,7 +31,7 @@ public class CreateModel : PageModel
     [BindProperty]
     public Message Message { get; set; } = default!;
 
-    public async Task<IActionResult> OnPostAsync(int? tripid)
+    public async Task<IActionResult> OnGetTripChatAsync(int? tripid)
     {
         if (tripid != null)
         {
