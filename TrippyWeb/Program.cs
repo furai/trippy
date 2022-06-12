@@ -89,7 +89,7 @@ if (!useMigrations)
 
         var context = services.GetRequiredService<TrippyWebDbContext>();
         context.Database.EnsureCreated();
-        // DbInitializer.Initialize(context);
+        SeedData.Initialize(context);
     }
 }
 
