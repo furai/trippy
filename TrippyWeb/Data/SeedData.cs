@@ -116,8 +116,8 @@ namespace TrippyWeb.Data
                        {
                            Beginning = "Start 2",
                            Destination = "Destination 3",
-                           StartDate = DateTime.Parse("2022-06-14 8:34:42Z"),
-                           EndDate = DateTime.Parse("2022-06-14 9:34:42Z"),
+                           StartDate = DateTime.Now.AddHours(2),
+                           EndDate = DateTime.Now.AddHours(7),
                            DurationInMinutes = 60,
                            FreeSpots = 4,
                            OwnerID = owner3.Id,
