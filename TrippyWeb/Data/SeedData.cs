@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrippyWeb.Data;
 using Microsoft.EntityFrameworkCore;
+using TrippyWeb.Data;
 
 namespace TrippyWeb.Data
 {
@@ -19,79 +19,78 @@ namespace TrippyWeb.Data
                    context.Reviews == null ||
                    context.Messages == null)
                 {
-                    throw new ArgumentNullException("Null TrippyWebDbContext");
+                    throw new ArgumentNullException(nameof(context));
                 }
 
-                // Look for any travel.
                 if (context.Trips.Any() && context.TrippyUsers.Any() && context.Messages.Any())
                 {
-                    return;   // DB has been seeded
+                    return;
                 }
 
-                Model.TrippyUser owner1 = new Model.TrippyUser
+                Model.TrippyUser owner1 = new()
                 {
                     Name = "Owner1",
                     OfferedTrips = { },
                     TripId = 0,
                     JoinedTrips = { },
                     Reviews = { },
-                    Email = "email1@wp.pl",
+                    Email = "email1@example.local",
                     UserName = "Jack"
                 };
-                Model.TrippyUser owner2 = new Model.TrippyUser
+                Model.TrippyUser owner2 = new()
                 {
                     Name = "Owner2",
                     OfferedTrips = { },
                     TripId = 0,
                     JoinedTrips = { },
                     Reviews = { },
-                    Email = "email2@wp.pl",
+                    Email = "email2@example.local",
                     UserName = "Tony"
                 };
-                Model.TrippyUser owner3 = new Model.TrippyUser
+                Model.TrippyUser owner3 = new()
                 {
                     Name = "Owner3",
                     OfferedTrips = { },
                     TripId = 0,
                     JoinedTrips = { },
                     Reviews = { },
-                    Email = "email3@wp.pl",
+                    Email = "email3@example.local",
                     UserName = "Emily"
                 };
-                Model.TrippyUser passenger1 = new Model.TrippyUser
+                Model.TrippyUser passenger1 = new()
                 {
                     Name = "Passenger1",
                     OfferedTrips = { },
                     TripId = 0,
                     JoinedTrips = { },
                     Reviews = { },
-                    Email = "email4@wp.pl",
+                    Email = "email4@example.local",
                     UserName = "Stan"
                 };
-                Model.TrippyUser passenger2 = new Model.TrippyUser
+                Model.TrippyUser passenger2 = new()
                 {
                     Name = "Passenger2",
                     OfferedTrips = { },
                     TripId = 0,
                     JoinedTrips = { },
                     Reviews = { },
-                    Email = "email5@wp.pl",
+                    Email = "email5@example.local",
                     UserName = "Stefany"
                 };
-                Model.TrippyUser passenger3 = new Model.TrippyUser
+                Model.TrippyUser passenger3 = new()
                 {
                     Name = "Passenger3",
                     OfferedTrips = { },
                     TripId = 0,
                     JoinedTrips = { },
                     Reviews = { },
-                    Email = "eamil6@wp.pl",
+                    Email = "eamil6@example.local",
                     UserName = "Jack"
                 };
 
                 if (!context.TrippyUsers.Any())
                 {
-                    context.TrippyUsers.AddRange(owner1, owner2, owner3, passenger1, passenger2, passenger3 );
+                    context.TrippyUsers.AddRange(owner1, owner2, owner3, passenger1, passenger2, passenger3);
                     context.SaveChanges();
                 }
 
@@ -110,8 +109,7 @@ namespace TrippyWeb.Data
                            Owner = owner1,
                            Price = 22.0,
                            Stops = "",
-                          // Messages = { },
-                           Passengers = {passenger1, passenger3,  owner3 },
+                           Passengers = { passenger1, passenger3, owner3 },
                            NonSmoking = false
                        },
                        new Model.Trip
@@ -126,8 +124,8 @@ namespace TrippyWeb.Data
                            Owner = owner3,
                            Price = 11.0,
                            Stops = "Grocery Shop 1",
-                          // Messages = { },
-                           Passengers = {owner2, passenger1, passenger3},
+                           // Messages = { },
+                           Passengers = { owner2, passenger1, passenger3 },
                            NonSmoking = false
                        },
                        new Model.Trip
@@ -142,30 +140,14 @@ namespace TrippyWeb.Data
                            Owner = owner2,
                            Price = 120.0,
                            Stops = "Grocery Shop",
-                          // Messages = { },
-                           Passengers = {owner1, passenger2},
+                           Passengers = { owner1, passenger2 },
                            NonSmoking = false
                        }
-                        
+
                     );
                     context.SaveChanges();
                 }
 
-
-                // not implemented
-                // if (!context.Reviews.Any())
-                // {
-                //     context.Reviews.AddRange(
-                //        new Model.Review()
-                //     );
-                // }
-
-                // if (!context.Messages.Any())
-                // {
-                //     context.Messages.AddRange(
-                //        new Model.Message{}
-                //     );
-                // }
                 context.SaveChanges();
             }
         }

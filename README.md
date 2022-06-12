@@ -31,6 +31,9 @@ Application's aim is to provide a portal for carpooling. Drivers should be able 
 * If your database is empty it will be automatically populated with schema if it's run in development mode.
 * Alternatively you can use migrations.
 
+## Staging
+
+You can run the application in staging mode by running `docker compose --profile full_app up --build`. This will create full application based on docker.
 
 ## Troubleshoot
 
