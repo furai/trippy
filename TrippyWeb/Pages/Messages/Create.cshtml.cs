@@ -31,35 +31,30 @@ public class CreateModel : PageModel
     [BindProperty]
     public Message Message { get; set; } = default!;
 
-    public async Task<IActionResult> OnGetTripChatAsync(int? tripid)
+    public async Task<IActionResult> OnPostAsync(int? tripid)
     {
-        if (tripid != null)
+        _logger.LogInformation("trip id: " + tripid);
+        if (tripid == null)
         {
-            return RedirectToPage("./Index");
+            TempData["error"] = "Error occured trip id is NULL!";
+            return RedirectToPage("../Trips/Index");
         }
 
         var user = await _userManager.GetUserAsync(User);
-        var trip = _context.Trips.Where(t => t.TripID == tripid).First();
 
         Message.UserName = user.Name;
         Message.CreatedDate = DateTime.Now;
+
+        var trip = _context.Trips.Where(t => t.TripID == tripid).First();
         Message.Trip = trip;
+
         Message.TripID = (int)tripid;
-
-        if (ModelState.IsValid || _context.Messages == null || Message == null)
-        {
-            _logger.LogInformation("Model is invalid.");
-            _logger.LogInformation("model: " + !ModelState.IsValid);
-            _logger.LogInformation("messages: " + (_context.Messages == null));
-            _logger.LogInformation("message" + (Message == null));
-
-            return Page();
-        }
 
         _context.Messages.Add(Message);
         await _context.SaveChangesAsync();
         TempData["success"] = "Message created successfully!";
 
-        return RedirectToPage("./Index");
+        return RedirectToPage("./Index", new {tripid = tripid});
     }
+
 }
