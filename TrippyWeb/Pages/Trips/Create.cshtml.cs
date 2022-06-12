@@ -84,6 +84,11 @@ public class CreateModel : PageModel
             ModelState.AddModelError("Trip.DurationInMinutes", "You're taking part in another trip during that time.");
         }
 
+        if (Trip.StartDate < DateTime.Now)
+        {
+            ModelState.AddModelError("Trip.StartDate", "Can't create trips in the past");
+        }
+
         if (!ModelState.IsValid || _context.Trips == null || Trip == null)
         {
             _logger.LogInformation("Model is invalid.");
