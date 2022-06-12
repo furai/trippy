@@ -26,6 +26,7 @@ Application's aim is to provide a portal for carpooling. Drivers should be able 
 
 ## How to develop
 
+* Copy `.env.example` to `.env` and supply your credentials for MailJet or leave default values in. Development mode displays verification emails in console.
 * Run `docker compose up --build` in the root of the project. This should be enough to create database.
 * `dotnet watch --project TrippyWeb run` will run the application in development watch mode.
 * If your database is empty it will be automatically populated with schema if it's run in development mode.
