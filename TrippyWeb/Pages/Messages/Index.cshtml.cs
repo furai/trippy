@@ -26,10 +26,17 @@ namespace TrippyWeb.Pages.Messages
             {
                 return NotFound();
             }
-
+            TripID = tripid;
             MessageList = await _context.Messages.Include(m => m.Trip).Where(m => m.TripID == tripid).ToListAsync();
 
             return Page();
+        }
+
+        public async Task OnGetAsync(int? tripid) {
+            if (tripid != null) {
+                TripID = tripid;
+            }
+             MessageList = await _context.Messages.Include(m => m.Trip).Where(m => m.TripID == TripID || m.TripID == tripid).ToListAsync();
         }
     }
 }

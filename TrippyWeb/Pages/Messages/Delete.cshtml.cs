@@ -20,6 +20,7 @@ public class DeleteModel : PageModel
 
     [BindProperty]
     public Message Message { get; set; }
+    public int? TripID { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -53,6 +54,6 @@ public class DeleteModel : PageModel
             TempData["success"] = "Message deleted successfully!";
         }
 
-        return RedirectToPage("./Index");
+        return RedirectToPage("./Index", new { tripid = Message.TripID });
     }
 }
