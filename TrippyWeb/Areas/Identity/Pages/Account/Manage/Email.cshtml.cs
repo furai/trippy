@@ -105,7 +105,7 @@ namespace TrippyWeb.Areas.Identity.Pages.Account.Manage
                     values: new { area = "Identity", userId = userId, email = Input.NewEmail, code = code },
                     protocol: Request.Scheme);
 
-                if (_env.IsDevelopment())
+                if (_env.IsDevelopment() || _env.IsStaging())
                 {
                     _logger.LogInformation(callbackUrl);
                 }
@@ -147,7 +147,7 @@ namespace TrippyWeb.Areas.Identity.Pages.Account.Manage
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
 
-            if (_env.IsDevelopment())
+            if (_env.IsDevelopment() || _env.IsStaging())
             {
                 _logger.LogInformation(callbackUrl);
             }

@@ -6,11 +6,13 @@ services:
     ports:
       - "8080:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Staging
     profiles:
       - full_app
     networks:
       - backend
+    depends_on:
+      - mariadb
   mariadb:
     image: mariadb:10.6.7
     volumes:

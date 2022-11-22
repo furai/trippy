@@ -40,7 +40,7 @@ public class EmailSender : IEmailSender
                 .Build();
 
 
-        if (!_env.IsDevelopment())
+        if (!_env.IsDevelopment() || !_env.IsStaging())
         {
             await client.SendTransactionalEmailAsync(email);
         }

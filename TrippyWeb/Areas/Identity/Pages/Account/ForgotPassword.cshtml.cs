@@ -58,7 +58,7 @@ namespace TrippyWeb.Areas.Identity.Pages.Account
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
-                if (_env.IsDevelopment())
+                if (_env.IsDevelopment() || _env.IsStaging())
                 {
                     _logger.LogInformation(callbackUrl);
                 }
