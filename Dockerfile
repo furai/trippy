@@ -16,4 +16,5 @@ RUN dotnet publish -c release -o /app -r linux-x64 --self-contained true --no-re
 FROM mcr.microsoft.com/dotnet/runtime-deps:6.0-bullseye-slim-amd64
 WORKDIR /app
 COPY --from=build /app ./
+COPY TrippyWeb/.env ./
 ENTRYPOINT ["./TrippyWeb"]
