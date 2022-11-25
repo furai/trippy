@@ -13,7 +13,7 @@ WORKDIR /source/TrippyWeb
 RUN dotnet publish -c release -o /app -r linux-x64 --self-contained true --no-restore /p:PublishTrimmed=true /p:PublishReadyToRun=true /p:PublishSingleFile=true
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/runtime-deps:6.0-bullseye-slim-amd64
+FROM mcr.microsoft.com/dotnet/runtime-deps:6.0-bullseye-slim
 WORKDIR /app
 COPY --from=build /app ./
 COPY TrippyWeb/.env ./
