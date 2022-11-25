@@ -5,16 +5,16 @@ WORKDIR /source
 # copy csproj and restore as distinct layers
 COPY *.sln .
 COPY TrippyWeb/*.csproj ./TrippyWeb/
-RUN dotnet restore -r linux-x64 /p:PublishReadyToRun=true
+RUN dotnet restore
 
 # copy everything else and build app
 COPY TrippyWeb/. ./TrippyWeb/
 WORKDIR /source/TrippyWeb
-RUN dotnet publish -c release -o /app -r linux-x64 --self-contained true --no-restore /p:PublishTrimmed=true /p:PublishReadyToRun=true /p:PublishSingleFile=true
+RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/runtime-deps:6.0-bullseye-slim
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build /app ./
 COPY TrippyWeb/.env ./
-ENTRYPOINT ["./TrippyWeb"]
+ENTRYPOINT ["dotnet", "TrippyWeb.dll"]
